@@ -15,7 +15,23 @@ if [ ! -d "$BASE" ]; then
   exit 1
 fi
 
-LATEST=$(find "$BASE" -maxdepth 1 -type d -name 'V*' | sed 's|.*/||' | sort -V | tail -n 1)
+if [ -f "$BASE/CURRENT" ]; then
+  CURRENT=$(cat "$BASE/CURRENT")
+else
+  CURRENT=""
+fi
+
+if [ -n "$CURRENT" ] && [ -f "$BASE/$CURRENT/skill.md" ]; then
+  LATEST="$CURRENT"
+else
+  LATEST=$(find "$BASE" -maxdepth 1 -type d -name 'V*' | sed 's|.*/||' | sort -V | tail -n 1)
+fi
+
+if [ -z "$LATEST" ]; then
+  echo "No current version found in $BASE"
+  exit 1
+fi
+
 LATEST_NUM=${LATEST#V}
 NEXT_NUM=$(printf "%03d" $((10#$LATEST_NUM + 1)))
 NEXT="V$NEXT_NUM"
@@ -41,6 +57,8 @@ for d in "$BASE"/V*; do
     mv "$d" "$BASE/archived/$name"
   fi
 done
+
+echo "$NEXT" > "$BASE/CURRENT"
 
 cat >> "$BASE/CHANGELOG.md" <<EOF
 ## $NEXT

@@ -1,9 +1,10 @@
 ---
 build_number: "002"
-skill_id: "acdc.demo.skill"
+skill_id: "epcb.demo.demo_skill"
 name: "demo-skill"
 description: "Base template for all skills"
-owner: "ACDC"
+trigger_keywords: "demo, example, template, test skill, scaffold"
+owner: "EPCB"
 status: "draft"
 created_at: "2026-04-18"
 last_updated: "2026-04-18"

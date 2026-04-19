@@ -1,12 +1,12 @@
 ---
-build_number: "002"
-skill_id: "acdc.test.final"
-name: "test-final"
+build_number: "001"
+skill_id: "epcb.contracts.contract_gen"
+name: "contract-gen"
 description: "Base template for all skills"
-owner: "ACDC"
+owner: "EPCB"
 status: "draft"
-created_at: "2026-04-18"
-last_updated: "2026-04-18"
+created_at: "2026-04-19"
+last_updated: "2026-04-19"
 ---
 
 # Objective

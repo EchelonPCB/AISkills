@@ -1,6 +1,6 @@
 ---
 build_number: "001"
-skill_id: "acdc.meta.prompt_optimizer"
+skill_id: "epcb.meta.prompt_optimizer"
 name: "master-prompt-optimizer"
 description: "Transforms raw user input into structured AI-ready prompts"
 status: "active"

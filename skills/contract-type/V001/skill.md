@@ -1,12 +1,13 @@
 ---
 build_number: "001"
-skill_id: "acdc.business.lead_scoring"
-name: "lead-scoring"
+skill_id: "epcb.contracts.contract_type"
+name: "contract-type"
 description: "Base template for all skills"
-owner: "ACDC"
+trigger_keywords: "contract, classify contract, contract type, validate parameters, scope"
+owner: "EPCB"
 status: "draft"
-created_at: "2026-04-18"
-last_updated: "2026-04-18"
+created_at: "2026-04-19"
+last_updated: "2026-04-19"
 ---
 
 # Objective

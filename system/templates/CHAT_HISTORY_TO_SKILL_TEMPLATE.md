@@ -1,6 +1,6 @@
 ---
 build_number: "001"
-skill_id: "acdc.meta.chat_to_skill"
+skill_id: "epcb.meta.chat_to_skill"
 name: "chat-to-skill"
 description: "Converts chat logs into reusable skill files"
 ---

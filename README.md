@@ -1,41 +1,81 @@
 # AI Skills System
 
 ## Purpose
-Centralized modular skill system for ACDC.
+Centralized modular skill system for EPCB.
 
-## Structure
-- templates/
-- scripts/
-- archived/
-- skill folders
+## Skill Discovery
+`MANIFEST.md` is the only skill discovery file.
+
+Do not use `system/indexes/skill-master-index.md`; it is deprecated and should not be regenerated.
+
+## Skill Structure
+Every skill uses this governed folder layout:
+
+```text
+skills/<skill-name>/
+  CURRENT
+  V###/skill.md
+  archived/
+  references/
+  assets/
+  scripts/
+  logs/
+  CHANGELOG.md
+```
+
+Folder names use hyphens. Skill IDs use `epcb.*` with underscores, for example:
+
+```text
+epcb.meta.chat_to_skill
+```
 
 ## Rules
-- Every update increments build_number
-- No overwriting versions
-- All changes logged
+- `CURRENT` points to the live `V###` version.
+- `MANIFEST.md` contains one row per live skill.
+- Archived versions stay inside each skill's `archived/` folder.
+- Do not overwrite old live versions.
+- Material skill changes use the next version folder.
+- Meaningful actions should be logged.
 
-Key commands from now on
-
+## Commands
 Create a skill:
 
-./system/scripts/new_skill.sh lead-scorer acdc.business.lead_scoring lead-scorer
+```bash
+./system/scripts/new_skill.sh lead-scorer business
+```
 
-Bump version:
+Bump a skill:
 
+```bash
 ./system/scripts/bump_skill.sh lead-scorer
+```
 
-Update master index:
+Regenerate manifest and supporting file indexes:
 
-python3 ./system/scripts/update_index.py
+```bash
+python3 system/scripts/update_index.py
+```
+
+Check generated files without writing:
+
+```bash
+python3 system/scripts/update_index.py --check
+```
 
 Log a run:
 
-python3 ./system/scripts/log_run.py lead-scorer "Created initial V001 structure"
+```bash
+python3 system/scripts/log_run.py lead-scorer "Created initial V001 structure"
+```
 
-Archive full skill:
+Archive a full skill:
 
+```bash
 ./system/scripts/archive_skill.sh lead-scorer
+```
 
-Open in VS Code:
+Enable automatic consistency before commits:
 
-code .
+```bash
+git config core.hooksPath .githooks
+```

@@ -1,9 +1,10 @@
 ---
 build_number: "001"
-skill_id: "acdc.template.skill"
+skill_id: "epcb.template.skill"
 name: "skill-template"
 description: "Base template for all skills"
-owner: "ACDC"
+trigger_keywords: "run, process, create, validate, workflow"
+owner: "EPCB"
 status: "draft"
 created_at: "YYYY-MM-DD"
 last_updated: "YYYY-MM-DD"

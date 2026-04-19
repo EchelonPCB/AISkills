@@ -3,17 +3,7 @@
     "id": "builtin_group_id",
     "name": "Currently Open Files",
     "files": [
-      "system/scripts/new_skill.sh",
-      "README.md",
-      "../../.zshrc",
-      "skills/infographic-generator/V001/skill.md",
-      "skills/infographic-generator/CHANGELOG.md",
-      "system/indexes/skill-master-index.md",
-      "skills/scripts/new_skill.sh",
-      "skills/scripts/bump_skill.sh",
-      "skills/scripts/archive_skill.sh",
-      "skills/scripts/update_index.py",
-      "skills/scripts/log_run.py"
+      "README.md"
     ],
     "builtIn": true,
     "bookmarks": {}

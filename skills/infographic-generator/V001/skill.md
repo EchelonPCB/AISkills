@@ -1,9 +1,10 @@
 ---
 build_number: "001"
-skill_id: "acdc.content.infographic_generator"
+skill_id: "epcb.content.infographic_generator"
 name: "infographic-generator"
 description: "Creates brand-aligned infographic concepts, visualization options, and image-generation prompts from user content."
-owner: "ACDC"
+trigger_keywords: "infographic, generate graphic, visualize content, image prompt, design concept"
+owner: "EPCB"
 status: "active"
 created_at: "2026-04-18"
 last_updated: "2026-04-18"
