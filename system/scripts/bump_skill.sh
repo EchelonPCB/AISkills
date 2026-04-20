@@ -2,12 +2,18 @@
 set -e
 
 SKILL_FOLDER=$1
+shift || true
+REASON="$*"
 TODAY=$(date +%F)
 BASE="skills/$SKILL_FOLDER"
 
 if [ -z "$SKILL_FOLDER" ]; then
-  echo "Usage: ./system/scripts/bump_skill.sh <skill-folder>"
+  echo "Usage: ./system/scripts/bump_skill.sh <skill-folder> \"reason for bump\""
   exit 1
+fi
+
+if [ -z "$REASON" ]; then
+  REASON="Reason not provided"
 fi
 
 if [ ! -d "$BASE" ]; then
@@ -63,11 +69,10 @@ echo "$NEXT" > "$BASE/CURRENT"
 cat >> "$BASE/CHANGELOG.md" <<EOF
 ## $NEXT
 - Bumped from $LATEST on $TODAY
-- [Add change summary here]
+- $REASON
 
 EOF
 
 python3 system/scripts/update_index.py
-python3 system/scripts/log_run.py "$SKILL_FOLDER" "Bumped from $LATEST to $NEXT"
 
 echo "Bumped $SKILL_FOLDER to $NEXT"

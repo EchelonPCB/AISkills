@@ -30,8 +30,11 @@ if [ -d "$BASE" ]; then
   exit 1
 fi
 
-mkdir -p "$BASE/$VERSION" "$BASE"/{archived,logs,references,assets,scripts}
+mkdir -p "$BASE/$VERSION" "$BASE"/{archived,references,assets,scripts}
 echo "$VERSION" > "$BASE/CURRENT"
+touch "$BASE/archived/.gitkeep"
+touch "$BASE/references/.gitkeep"
+touch "$BASE/assets/.gitkeep"
 touch "$BASE/scripts/.gitkeep"
 
 cp system/templates/SKILL_TEMPLATE.md "$BASE/$VERSION/skill.md"
@@ -59,6 +62,5 @@ p.write_text(text)
 PY
 
 python3 system/scripts/update_index.py
-python3 system/scripts/log_run.py "$SKILL_FOLDER" "Created $VERSION"
 
 echo "Created $SKILL_FOLDER with ID $SKILL_ID"

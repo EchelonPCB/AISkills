@@ -6,8 +6,6 @@ import sys
 
 ROOT = Path(".")
 SKILLS = ROOT / "skills"
-REFERENCES = ROOT / "references"
-ASSETS = ROOT / "assets"
 VENDOR = ROOT / "vendor"
 INDEXES = ROOT / "system" / "indexes"
 
@@ -26,7 +24,7 @@ class SkillRecord:
     current_path: Path
 
 
-REQUIRED_SKILL_DIRS = ("archived", "references", "assets", "scripts", "logs")
+REQUIRED_SKILL_DIRS = ("archived", "references", "assets", "scripts")
 def read_meta(skill_file: Path):
     meta = {
         "skill_id": "",
@@ -35,7 +33,15 @@ def read_meta(skill_file: Path):
         "trigger_keywords": "",
     }
 
-    for line in skill_file.read_text().splitlines():
+    lines = skill_file.read_text().splitlines()
+    if lines and lines[0] == "---":
+        try:
+            end = lines.index("---", 1)
+            lines = lines[1:end]
+        except ValueError:
+            lines = []
+
+    for line in lines:
         if line.startswith("skill_id:"):
             meta["skill_id"] = line.split(":", 1)[1].strip().strip('"')
         elif line.startswith("name:"):
@@ -146,6 +152,28 @@ def render_manifest(records):
     return "\n".join(lines) + "\n"
 
 
+def is_indexable_support_file(path: Path):
+    return path.name not in {".gitkeep", ".DS_Store"} and path.is_file()
+
+
+def render_support_index(title, dirname):
+    lines = [
+        f"# {title}",
+        "",
+        "| Skill | Path |",
+        "|-------|------|",
+    ]
+
+    if SKILLS.exists():
+        for skill_dir in sorted(p for p in SKILLS.iterdir() if p.is_dir()):
+            support_dir = skill_dir / dirname
+            if not support_dir.exists():
+                continue
+            for path in sorted(x for x in support_dir.rglob("*") if is_indexable_support_file(x)):
+                lines.append(f"| {skill_dir.name} | {path.as_posix()} |")
+    return "\n".join(lines) + "\n"
+
+
 def render_path_index(title, base_path):
     lines = [
         f"# {title}",
@@ -155,7 +183,8 @@ def render_path_index(title, base_path):
     ]
     if base_path.exists():
         for path in sorted(x for x in base_path.rglob("*") if x.is_file()):
-            lines.append(f"| {path.as_posix()} |")
+            if is_indexable_support_file(path):
+                lines.append(f"| {path.as_posix()} |")
     return "\n".join(lines) + "\n"
 
 
@@ -188,8 +217,9 @@ def main():
     INDEXES.mkdir(parents=True, exist_ok=True)
     generated = {
         ROOT / "MANIFEST.md": render_manifest(records),
-        INDEXES / "reference-index.md": render_path_index("REFERENCE INDEX", REFERENCES),
-        INDEXES / "asset-index.md": render_path_index("ASSET INDEX", ASSETS),
+        INDEXES / "reference-index.md": render_support_index("REFERENCE INDEX", "references"),
+        INDEXES / "asset-index.md": render_support_index("ASSET INDEX", "assets"),
+        INDEXES / "script-index.md": render_support_index("SCRIPT INDEX", "scripts"),
         INDEXES / "vendor-index.md": render_path_index("VENDOR INDEX", VENDOR),
     }
 

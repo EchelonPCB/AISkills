@@ -1,4 +1,4 @@
-# ASSET INDEX
+# SCRIPT INDEX
 
 | Skill | Path |
 |-------|------|

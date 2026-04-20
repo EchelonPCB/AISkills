@@ -3,7 +3,10 @@
     "id": "builtin_group_id",
     "name": "Currently Open Files",
     "files": [
-      "README.md"
+      "README.md",
+      "../../.zshrc",
+      "system/templates/REFERENCE_TEMPLATE.md",
+      "skills/jetson-multinode-devops/V001/skill.md"
     ],
     "builtIn": true,
     "bookmarks": {}

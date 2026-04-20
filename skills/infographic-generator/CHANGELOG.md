@@ -4,7 +4,7 @@
 - Initial creation
 
 ## V002
-- [Describe changes]
+- Bumped from V001 on 2026-04-19
+- Added Failure Modes, Dependencies, and Assumptions sections
+- Preserved V001 as archived history before structural validation cleanup
 
-## V003
-- [Describe changes]

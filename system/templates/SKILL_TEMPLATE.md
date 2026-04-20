@@ -13,12 +13,21 @@ last_updated: "YYYY-MM-DD"
 # Objective
 Define the purpose of the skill.
 
+# Trigger
+Use this skill when the user request matches the trigger keywords and the workflow is repeatable.
+
 # Inputs
 1. Required inputs
 2. Optional inputs
 
 # Outputs
 1. Expected outputs
+
+# Support Layers
+- Put long examples and source notes in `references/`.
+- Put templates, images, exports, fixtures, and other artifacts in `assets/`.
+- Put executable helpers in `scripts/`.
+- Keep `skill.md` self-contained for core execution, but avoid bloating it with large support material.
 
 # Procedure
 

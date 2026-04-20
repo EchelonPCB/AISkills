@@ -2,4 +2,3 @@
 
 | Path |
 |------|
-| vendor/.DS_Store |

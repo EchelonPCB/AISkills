@@ -1,4 +1,0 @@
-[2026-04-19 00:19:54] Created V001
-[2026-04-19 02:35:45] Bumped from V001 to V002
-[2026-04-19 11:33:32] Bumped from V002 to V003
-2026-04-19T23:44:03Z | run | skill_id: epcb.meta.chat_to_skill | trigger: "Aligned AISkills governance: manifest-only discovery, underscore epcb IDs, structured logs, and governed scripts directories" | in_tokens: unknown | out_tokens: unknown | total_tokens: unknown | model: unknown | status: complete

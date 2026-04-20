@@ -2,9 +2,11 @@
 set -e
 
 python3 system/scripts/update_index.py
+python3 system/scripts/validate_skills.py
 git add -u system/indexes
 git add MANIFEST.md \
   system/indexes/reference-index.md \
   system/indexes/asset-index.md \
+  system/indexes/script-index.md \
   system/indexes/vendor-index.md
 python3 system/scripts/update_index.py --check
