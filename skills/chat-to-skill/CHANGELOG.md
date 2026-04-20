@@ -36,3 +36,10 @@
 - Bumped from V007 on 2026-04-19
 - Improve generated skill quality checks for source-specific examples, support layers, baseline modes, and changelog sync
 
+## V009
+- Bumped from V008 on 2026-04-19
+- Force immediate classification mode when this skill is supplied as operating instructions
+- Added first-response classification block for apply mode
+- Added routing lock to prevent advisory-mode drift before classification
+- Added current-visible-chat fallback when no separate transcript is supplied
+- Added non-qualifying output rules for reject, insufficient, reference, asset, and script classifications

@@ -46,6 +46,62 @@ Top-level `references/` and `assets/` are legacy holding areas only. New skill-s
 - Keep `skill.md` focused on activation, inputs, outputs, procedure, and validation.
 - Move large examples or support material into the skill-local support folders.
 
+## AI Runtime Usage
+AISkills becomes a runtime when an AI uses `MANIFEST.md` as a routing table instead of reading the whole repository.
+
+Runtime order:
+
+1. Read `MANIFEST.md`.
+2. Select one relevant live skill by `description` and `trigger_keywords`.
+3. Read only the selected row's `current_path`.
+4. Execute that `skill.md`.
+5. Load skill-local `references/`, `assets/`, or `scripts/` only when needed.
+6. If no skill applies, say no AISkills skill applies and proceed normally.
+
+Do not ask an AI to read the entire repo as its first step. That wastes tokens and increases the chance it will use archived or deprecated material.
+
+### Claude Project / Cowork Setup
+Use this short repo entrypoint when Claude supports project files or repo guidance:
+
+```text
+CLAUDE.md
+```
+
+Use this fuller prompt as Claude project or cowork instructions:
+
+```text
+system/prompts/AISKILLS_CLAUDE_OPERATOR.md
+```
+
+The Claude operator prompt tells Claude to:
+
+- treat `MANIFEST.md` as the only discovery layer
+- load only one live `skill.md` by default
+- avoid archived versions unless explicitly asked
+- use skill-local support files only after selecting a skill
+- run index and validation commands after repo changes when shell access is available
+
+If Claude cannot run shell commands, it should still follow the same routing logic manually by reading `MANIFEST.md` and then the selected `current_path`.
+
+### Runtime Selector
+Use the selector to route tasks without scanning every skill body:
+
+```bash
+python3 system/scripts/select_skill.py "turn this lab chat into a formal engineering record"
+```
+
+To print the best matching live skill after selection:
+
+```bash
+python3 system/scripts/select_skill.py "turn this lab chat into a formal engineering record" --show
+```
+
+For machine-readable output:
+
+```bash
+python3 system/scripts/select_skill.py "turn this lab chat into a formal engineering record" --json
+```
+
 ## Commands
 Create a skill:
 
