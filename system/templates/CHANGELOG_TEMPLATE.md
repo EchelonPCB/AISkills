@@ -1,10 +1,5 @@
 # CHANGELOG
 
 ## V001
-- Initial creation
-
-## V002
-- [Describe changes]
-
-## V003
-- [Describe changes]
+- Created on YYYY-MM-DD
+- TODO: Replace with the reason this skill was created

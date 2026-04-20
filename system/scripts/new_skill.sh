@@ -44,7 +44,7 @@ cat > "$BASE/CHANGELOG.md" <<EOF
 
 ## V001
 - Created on $TODAY
-- Initial skill scaffold
+- Initial governed skill scaffold; replace TODOs in $BASE/$VERSION/skill.md before validation
 
 EOF
 

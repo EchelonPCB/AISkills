@@ -92,6 +92,16 @@ For skill version changes, use `bump_skill.sh` with a reason so the changelog st
 
 Do not put routine validation or index regeneration into `CHANGELOG.md`; record only meaningful skill changes.
 
+## Templates
+Templates live in `system/templates/` and are starting points, not live skills.
+
+- `SKILL_TEMPLATE.md`: copied by `new_skill.sh` into `skills/<skill>/V001/skill.md`. It intentionally contains `TODO:` markers, so a new scaffold must be authored before `validate_skills.py` passes.
+- `CHANGELOG_TEMPLATE.md`: reference shape for skill changelogs. The scripts generate real changelogs automatically.
+- `REFERENCE_TEMPLATE.md`: starting point for files placed in a skill-local `references/` folder.
+- `MASTER_PROMPT_OPTIMIZER_SKILL.MD`: legacy/template prompt-optimization skill shape. Use it as reference material unless it is promoted into `skills/` as a governed skill.
+
+Do not treat templates as discoverable skills. Only `MANIFEST.md` controls live skill discovery.
+
 Archive a full skill:
 
 ```bash

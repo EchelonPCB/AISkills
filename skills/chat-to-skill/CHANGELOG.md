@@ -28,3 +28,11 @@
 - Bumped from V005 on 2026-04-19
 - Testing Command
 
+## V007
+- Bumped from V006 on 2026-04-19
+- Force extraction output to be a single copy-pastable governed skill and reject non-epcb generated IDs
+
+## V008
+- Bumped from V007 on 2026-04-19
+- Improve generated skill quality checks for source-specific examples, support layers, baseline modes, and changelog sync
+

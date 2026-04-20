@@ -5,7 +5,9 @@
     "files": [
       "README.md",
       "../../.zshrc",
-      "system/templates/REFERENCE_TEMPLATE.md",
+      "skills/acdc-governance-system/V001/skill.md",
+      "skills/chat-to-skill/V007/skill.md",
+      "skills/engineering-work-record-generation/V001/skill.md",
       "skills/jetson-multinode-devops/V001/skill.md"
     ],
     "builtIn": true,

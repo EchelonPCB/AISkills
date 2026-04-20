@@ -13,6 +13,7 @@ REQUIRED_PHRASES = ("Use when", "Use this skill when")
 PLACEHOLDER_SNIPPETS = (
     'description: "Base template for all skills"',
     'trigger_keywords: "run, process, create, validate, workflow"',
+    "TODO:",
     "Define the purpose of the skill.",
     "1. Required inputs",
     "2. Optional inputs",
