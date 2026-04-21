@@ -10,6 +10,35 @@ TOP_LEVEL_SUPPORT_DIRS = ("references", "assets")
 MAX_SKILL_LINES = 800
 MIN_DESCRIPTION_CHARS = 20
 REQUIRED_PHRASES = ("Use when", "Use this skill when")
+REQUIRED_FRONTMATTER_KEYS = (
+    "build_number",
+    "skill_id",
+    "name",
+    "description",
+    "trigger_keywords",
+    "owner",
+    "status",
+    "created_at",
+    "last_updated",
+)
+REQUIRED_SECTIONS = (
+    "# Index",
+    "# Objective",
+    "# Trigger",
+    "# Do Not Use When",
+    "# Required Inputs",
+    "# Optional Inputs",
+    "# Outputs",
+    "# Support Layers",
+    "# Procedure",
+    "# Decision Logic",
+    "# Validation",
+    "# Rules",
+    "# Failure Modes",
+    "# Dependencies",
+    "# Assumptions",
+    "# Change Log",
+)
 PLACEHOLDER_SNIPPETS = (
     'description: "Base template for all skills"',
     'trigger_keywords: "run, process, create, validate, workflow"',
@@ -22,6 +51,13 @@ PLACEHOLDER_SNIPPETS = (
     "Step 2: Process Inputs",
     "Step 3: Execute Logic",
     "Step 4: Output Results",
+)
+FORBIDDEN_ARTIFACTS = (
+    ":contentReference",
+    "oaicite",
+    "[Add change summary here]",
+    "Initial governed skill scaffold; replace TODOs",
+    "replace TODOs before validation",
 )
 
 
@@ -47,6 +83,25 @@ def frontmatter_value(text: str, key: str):
     return ""
 
 
+def frontmatter_lines(text: str):
+    lines = text.splitlines()
+    if not lines or lines[0] != "---":
+        return []
+    try:
+        end = lines.index("---", 1)
+    except ValueError:
+        return []
+    return lines[1:end]
+
+
+def top_level_heading_lines(text: str):
+    return [
+        (index, line.strip())
+        for index, line in enumerate(text.splitlines(), start=1)
+        if line.startswith("# ")
+    ]
+
+
 def validate_trigger_keywords(record):
     errors = []
     keywords = [item.strip() for item in record.trigger_keywords.split(",") if item.strip()]
@@ -70,11 +125,40 @@ def validate_skill_file(record):
     errors = []
     text = skill_text(record.current_path)
     description = record.description.strip()
+    documents_forbidden_artifacts = record.name == "chat-to-skill"
 
     for snippet in PLACEHOLDER_SNIPPETS:
         if snippet in text:
             errors.append(
                 f"{record.current_path.as_posix()} still contains template placeholder text: {snippet!r}"
+            )
+
+    for artifact in FORBIDDEN_ARTIFACTS:
+        if artifact in text and not documents_forbidden_artifacts:
+            errors.append(
+                f"{record.current_path.as_posix()} contains forbidden source/scaffold artifact: {artifact!r}"
+            )
+
+    frontmatter = frontmatter_lines(text)
+    if not frontmatter:
+        errors.append(f"{record.current_path.as_posix()} must start with YAML frontmatter")
+    else:
+        present_keys = [
+            line.split(":", 1)[0].strip()
+            for line in frontmatter
+            if ":" in line and not line.lstrip().startswith("#")
+        ]
+        for key in REQUIRED_FRONTMATTER_KEYS:
+            if key not in present_keys:
+                errors.append(f"{record.current_path.as_posix()} frontmatter is missing {key}")
+        required_positions = [
+            present_keys.index(key)
+            for key in REQUIRED_FRONTMATTER_KEYS
+            if key in present_keys
+        ]
+        if required_positions != sorted(required_positions):
+            errors.append(
+                f"{record.current_path.as_posix()} frontmatter keys must keep required metadata order"
             )
 
     if len(description) < MIN_DESCRIPTION_CHARS:
@@ -91,12 +175,67 @@ def validate_skill_file(record):
         errors.append(
             f"{record.current_path.as_posix()} must include a 'Use when' or 'Use this skill when' section"
         )
-    if "# Failure Modes" not in text:
-        errors.append(f"{record.current_path.as_posix()} must include # Failure Modes")
-    if "# Dependencies" not in text:
-        errors.append(f"{record.current_path.as_posix()} must include # Dependencies")
-    if "# Assumptions" not in text:
-        errors.append(f"{record.current_path.as_posix()} must include # Assumptions")
+
+    headings = top_level_heading_lines(text)
+    heading_positions = {heading: line_no for line_no, heading in headings}
+    last_position = 0
+    for section in REQUIRED_SECTIONS:
+        position = heading_positions.get(section)
+        if position is None:
+            errors.append(f"{record.current_path.as_posix()} must include {section}")
+            continue
+        if position < last_position:
+            errors.append(
+                f"{record.current_path.as_posix()} has {section} out of required section order"
+            )
+        last_position = max(last_position, position)
+    return errors
+
+
+def validate_changelog(record):
+    errors = []
+    skill_dir = record.current_path.parents[1]
+    changelog = skill_dir / "CHANGELOG.md"
+    documents_forbidden_artifacts = record.name == "chat-to-skill"
+    if not changelog.exists():
+        return [f"{skill_dir.as_posix()} is missing CHANGELOG.md"]
+
+    text = changelog.read_text()
+    if f"## {record.current_version}" not in text:
+        errors.append(
+            f"{changelog.as_posix()} must include an entry for {record.current_version}"
+        )
+    for artifact in FORBIDDEN_ARTIFACTS:
+        if artifact in text and not documents_forbidden_artifacts:
+            errors.append(
+                f"{changelog.as_posix()} contains forbidden source/scaffold artifact: {artifact!r}"
+            )
+    return errors
+
+
+def validate_manifest_overlap(records):
+    errors = []
+    seen_names = {}
+    seen_keyword_sets = {}
+
+    for record in records:
+        normalized_name = record.name.replace("-", "_")
+        if normalized_name in seen_names:
+            errors.append(
+                f"{record.current_path.as_posix()} has near-duplicate skill name with {seen_names[normalized_name]}"
+            )
+        seen_names[normalized_name] = record.current_path.as_posix()
+
+        keywords = frozenset(
+            keyword.strip().lower()
+            for keyword in record.trigger_keywords.split(",")
+            if keyword.strip()
+        )
+        if keywords and keywords in seen_keyword_sets:
+            errors.append(
+                f"{record.current_path.as_posix()} duplicates trigger_keywords from {seen_keyword_sets[keywords]}"
+            )
+        seen_keyword_sets[keywords] = record.current_path.as_posix()
     return errors
 
 
@@ -136,11 +275,13 @@ def main():
         return 1
 
     errors.extend(validate_top_level_support())
+    errors.extend(validate_manifest_overlap(records))
 
     for record in records:
         errors.extend(validate_trigger_keywords(record))
         errors.extend(validate_skill_file(record))
         errors.extend(validate_support_links(record))
+        errors.extend(validate_changelog(record))
 
     if errors:
         for error in errors:

@@ -6,6 +6,8 @@ Use this prompt for any AI assistant that can read the AISkills repository.
 
 Before doing work, route the user request through `MANIFEST.md`. Select one live skill, read only that skill's `current_path`, and execute it. If no skill applies, say so and continue normally.
 
+When MCP tools are available, prefer the governed MCP tools over raw file reads or direct shell commands.
+
 ## Minimal Runtime Algorithm
 
 1. Read `MANIFEST.md`.
@@ -16,6 +18,8 @@ Before doing work, route the user request through `MANIFEST.md`. Select one live
 6. Load support files only when the selected skill requires them.
 7. Return the task result.
 
+If the match is weak or ambiguous, inspect top candidates or ask for clarification before loading a skill.
+
 ## Hard Rules
 
 - `MANIFEST.md` is the only live discovery layer.
@@ -25,19 +29,23 @@ Before doing work, route the user request through `MANIFEST.md`. Select one live
 - Do not invent skill IDs.
 - Do not overwrite live versions; bump first.
 - Keep support material inside the relevant skill folder.
+- Use `skill-mutation` and `workspace/mutations/` for any two-or-more-skill mutation.
+- Do not promote staged mutations, archive skills, delete files, commit, or push without explicit human approval.
+- Run at most two validation repair passes before reporting blockers.
+- Do not create `VP###`, `production/`, or alternate production version folders.
 
 ## Useful Commands
 
 Select likely skills:
 
 ```bash
-python3 system/scripts/select_skill.py "<task>"
+python3 system/scripts/select_skill.py "<task>" --require-confident
 ```
 
 Select and print the best live skill:
 
 ```bash
-python3 system/scripts/select_skill.py "<task>" --show
+python3 system/scripts/select_skill.py "<task>" --show --require-confident
 ```
 
 Regenerate and validate after changes:

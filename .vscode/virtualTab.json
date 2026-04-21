@@ -4,12 +4,11 @@
     "name": "Currently Open Files",
     "files": [
       "README.md",
-      "system/prompts/AISKILLS_CLAUDE_OPERATOR.md",
       "../../.zshrc",
-      "skills/acdc-governance-system/V001/skill.md",
-      "skills/chat-to-skill/V007/skill.md",
-      "skills/engineering-work-record-generation/V001/skill.md",
-      "skills/jetson-multinode-devops/V001/skill.md"
+      "skills/dual-channel-initiative-positioning/V001/skill.md",
+      "skills/infographic-generator/V003/skill.md",
+      "skills/acdc-governance-system/CHANGELOG.md",
+      "system/prompts/AISKILLS_CLAUDE_OPERATOR.md"
     ],
     "builtIn": true,
     "bookmarks": {}

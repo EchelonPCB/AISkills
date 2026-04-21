@@ -8,3 +8,7 @@
 - Added Failure Modes, Dependencies, and Assumptions sections
 - Preserved V001 as archived history before structural validation cleanup
 
+## V003
+- Bumped from V002 on 2026-04-20
+- Align current skill to governed section schema for autonomous validation
+

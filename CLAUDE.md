@@ -10,6 +10,8 @@ Claude should operate this repository through AISkills runtime routing.
 4. Execute that `skill.md`.
 5. Load support files only when the selected skill requires them.
 
+When MCP tools are available, use them before raw file reads or shell commands.
+
 For full Claude project instructions, read:
 
 ```text
@@ -21,14 +23,16 @@ system/prompts/AISKILLS_CLAUDE_OPERATOR.md
 When shell access is available:
 
 ```bash
-python3 system/scripts/select_skill.py "<user task>"
+python3 system/scripts/select_skill.py "<user task>" --require-confident
 ```
 
 To print the selected live skill:
 
 ```bash
-python3 system/scripts/select_skill.py "<user task>" --show
+python3 system/scripts/select_skill.py "<user task>" --show --require-confident
 ```
+
+If selection is low confidence or ambiguous, inspect the top candidates or ask for clarification before executing.
 
 ## Hard Rules
 
@@ -39,3 +43,6 @@ python3 system/scripts/select_skill.py "<user task>" --show
 - Do not create non-`epcb.*` skill IDs.
 - Do not overwrite live skill versions; bump first.
 - After repo changes, run index and validation checks.
+- Do not commit, push, archive, delete, or promote staged mutations without explicit human approval.
+- Use `skill-mutation` and `workspace/mutations/` for any two-or-more-skill mutation.
+- Run at most two validation repair passes before reporting blockers.

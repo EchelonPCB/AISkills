@@ -20,6 +20,7 @@ last_updated: "YYYY-MM-DD"
 | Key Steps   | TODO: short verb phrase sequence                           |
 | Fails When  | TODO: primary failure condition                            |
 | Name Rule   | Folder uses kebab-case; skill_id uses epcb.<domain>.<name> |
+| RALPH       | TODO: pass, conditional pass, or hand off                  |
 
 ---
 
@@ -91,11 +92,22 @@ The result is valid when:
 2. TODO: Concrete validation condition.
 3. All referenced support files exist or are listed as planned support files.
 
+# RALPH Loop
+
+Run at most two RALPH passes before finalizing:
+
+- **R — Reaffirm Requirements:** TODO: confirm all required inputs, outputs, metadata, and sections are present.
+- **A — Audit Alignment:** TODO: confirm the result matches the skill objective and trigger.
+- **L — Lock Layout and Lineage:** TODO: confirm standard section order, `epcb.*` skill ID, support paths, and versioning.
+- **P — Purge Provenance Problems:** TODO: remove citation artifacts, scaffold leftovers, invented paths, and hidden-context dependencies.
+- **H — Halt or Hand Off:** TODO: exit with PASS, CONDITIONAL PASS, or HAND OFF after no more than two passes.
+
 # Rules
 
 - TODO: Hard rule or constraint.
 - Do not rely on hidden chat context.
 - Do not put large raw examples directly in `skill.md`.
+- Do not run validation loops indefinitely.
 
 # Failure Modes
 

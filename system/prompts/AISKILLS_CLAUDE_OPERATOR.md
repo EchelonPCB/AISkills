@@ -6,6 +6,8 @@ Use this prompt as Claude Project or cowork instructions when Claude has access 
 
 Operate AISkills as a token-efficient skill runtime. Use `MANIFEST.md` as the only discovery layer, load only the live skill needed for the task, execute that skill, and preserve repository governance when making changes.
 
+When MCP tools are available, use governed MCP tools before raw file reads or shell commands. Raw file edits are a fallback, not the primary interface.
+
 ## Runtime Loop
 
 Before answering a task:
@@ -20,14 +22,16 @@ Before answering a task:
 When shell access is available, prefer:
 
 ```bash
-python3 system/scripts/select_skill.py "<user task>"
+python3 system/scripts/select_skill.py "<user task>" --require-confident
 ```
 
 To load the best matching live skill through the selector:
 
 ```bash
-python3 system/scripts/select_skill.py "<user task>" --show
+python3 system/scripts/select_skill.py "<user task>" --show --require-confident
 ```
+
+If the selector reports low confidence or ambiguity, inspect the top candidates or ask for clarification before executing a skill.
 
 ## Token Budget Rules
 
@@ -52,6 +56,12 @@ python3 system/scripts/select_skill.py "<user task>" --show
 
 ## Repo Change Rules
 
+Before changing files:
+
+```bash
+git status --short
+```
+
 When creating a new skill:
 
 ```bash
@@ -71,6 +81,47 @@ python3 system/scripts/update_index.py
 python3 system/scripts/validate_skills.py
 python3 system/scripts/update_index.py --check
 ```
+
+Do not commit or push unless the user explicitly asks.
+
+## Autonomy And HIL Tiers
+
+Use the lowest necessary human-in-the-loop level.
+
+**Auto-allowed without confirmation:**
+- regenerate `MANIFEST.md` and support indexes
+- run validation and selector commands
+- fix formatting, section order, trigger keyword placement, citation artifacts, scaffold changelog leftovers, and support-link typos
+
+**Auto-bump allowed with summary:**
+- tighten validation gates
+- add failure modes, assumptions, dependencies, or rules to an existing skill
+- align an older live skill to the governed section schema
+
+**Human approval required before proceeding:**
+- create a new live skill
+- promote a staged mutation into `skills/`
+- archive a skill
+- delete files
+- change shell scripts, validators, templates, or MCP tool behavior
+- resolve parent-skill conflicts that require policy judgment
+- commit or push changes
+
+## Transaction Safety
+
+- Never overwrite a live `V###/skill.md`; bump first for material changes.
+- Treat each skill update as a transaction: preflight, edit, update index, validate, check index consistency, summarize.
+- If validation fails after a bump, do not keep editing indefinitely. Run at most two repair passes, then report blockers.
+- Do not run destructive rollback commands unless the user explicitly requests them.
+- If a bumped version cannot be fixed, leave the worktree intact and report the exact failing files and commands.
+
+## Mutation Safety
+
+- Use `skill-mutation` for any request to combine, merge, synthesize, evolve, or mutate two or more skills.
+- Stage mutations under `workspace/mutations/<mutation-name>/`.
+- Do not promote a mutated skill until parent mapping, conflict matrix, validation plan, validation results, and explicit human approval exist.
+- Do not concatenate parent skill files.
+- Do not create `VP###`, `production/`, or alternate production folders.
 
 ## Identity Rules
 
@@ -101,6 +152,8 @@ Files changed:
 Validation:
 Next step:
 ```
+
+Also include any HIL reason when you stop before promotion, deletion, archive, commit, push, or unresolved conflict resolution.
 
 ## No-Skill Behavior
 
