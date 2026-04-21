@@ -10,8 +10,8 @@ try:
     from mcp.server.fastmcp import FastMCP
 except ModuleNotFoundError as exc:
     print(
-        "Missing MCP Python SDK. Install with `uv sync` in system/mcp "
-        "or `pip install \"mcp[cli]>=1.2.0\"`.",
+        "Missing MCP Python SDK. Run `./setup_mcp_env.sh` from system/mcp "
+        "or install `mcp[cli]>=1.2.0` into the Python environment launching this server.",
         file=sys.stderr,
     )
     raise SystemExit(1) from exc
@@ -25,7 +25,7 @@ mcp = FastMCP("aiskills")
 
 def run_gateway(*args: str) -> dict:
     result = subprocess.run(
-        ["python3", str(GATEWAY), *args],
+        [sys.executable, str(GATEWAY), *args],
         cwd=ROOT,
         text=True,
         capture_output=True,

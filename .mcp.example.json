@@ -1,12 +1,8 @@
 {
   "mcpServers": {
     "aiskills": {
-      "command": "uv",
+      "command": "/Users/polaszwaczka/Desktop/AISkills/system/mcp/run_aiskills_mcp.sh",
       "args": [
-        "--directory",
-        "/Users/polaszwaczka/Desktop/AISkills/system/mcp",
-        "run",
-        "aiskills_server.py"
       ]
     }
   }

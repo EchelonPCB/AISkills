@@ -10,6 +10,9 @@ The server is intentionally narrow. It exposes routing and validation tools firs
 system/mcp/
   aiskills_server.py
   pyproject.toml
+  requirements.txt
+  setup_mcp_env.sh
+  run_aiskills_mcp.sh
   claude_desktop_config.example.json
 
 system/scripts/
@@ -51,17 +54,28 @@ python3 system/scripts/mcp_gateway.py list-mutations
 python3 system/scripts/mcp_gateway.py validate-mutation chat-to-contracts
 ```
 
-## Install MCP Runtime
+## Install MCP Runtime Without uv
 
-Install `uv` if needed, then run:
+Use the venv setup path on macOS when `uv` is not installed:
+
+```bash
+cd /Users/polaszwaczka/Desktop/AISkills/system/mcp
+chmod +x setup_mcp_env.sh run_aiskills_mcp.sh
+./setup_mcp_env.sh
+./run_aiskills_mcp.sh
+```
+
+The server uses stdio transport. When run directly, it waits for an MCP client to speak JSON-RPC over stdin/stdout.
+
+## Optional uv Runtime
+
+If you later install `uv`, this also works:
 
 ```bash
 cd /Users/polaszwaczka/Desktop/AISkills/system/mcp
 uv sync
 uv run aiskills_server.py
 ```
-
-The server uses stdio transport. When run directly, it waits for an MCP client to speak JSON-RPC over stdin/stdout.
 
 ## Claude Desktop Connection
 
@@ -91,15 +105,33 @@ Do not commit a machine-specific `.mcp.json` unless the path and launch command 
 
 ## Connection Model
 
-1. Claude launches `uv --directory /Users/polaszwaczka/Desktop/AISkills/system/mcp run aiskills_server.py`.
+1. Claude launches `/Users/polaszwaczka/Desktop/AISkills/system/mcp/run_aiskills_mcp.sh`.
 2. `aiskills_server.py` exposes MCP tools.
 3. Tool calls delegate to `system/scripts/mcp_gateway.py`.
 4. The gateway returns compact JSON.
 5. The AI reads a single selected skill only after routing.
 
+## Sync, Async, Or Hybrid
+
+Current choice: hybrid, with synchronous tool calls at the repo boundary.
+
+- MCP host/server protocol: stdio, event-driven by the client.
+- MCP tool functions: synchronous wrappers.
+- Repo operations: synchronous subprocess calls.
+- Future path: async wrappers only if multiple long-running tools need parallel execution.
+
+Why this is intentional:
+
+- The repo is local and small.
+- Routing and validation commands are fast.
+- Synchronous subprocess calls are easier to audit and safer for write gates.
+- Async would add complexity before there is real latency pressure.
+
+Do not expose parallel write tools until transaction safety is stronger.
+
 ## Failure Points
 
-- `uv` is not installed or not on PATH.
+- MCP venv was not created with `setup_mcp_env.sh`.
 - MCP SDK dependency is not installed.
 - Claude config JSON has invalid syntax.
 - Config path is relative instead of absolute.

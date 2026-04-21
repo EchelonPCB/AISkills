@@ -131,6 +131,16 @@ The local MCP server lives in:
 system/mcp/aiskills_server.py
 ```
 
+Set up the MCP Python environment without `uv`:
+
+```bash
+cd /Users/polaszwaczka/Desktop/AISkills/system/mcp
+chmod +x setup_mcp_env.sh run_aiskills_mcp.sh
+./setup_mcp_env.sh
+```
+
+Then use `run_aiskills_mcp.sh` as the Claude launch command.
+
 Connection examples live in:
 
 ```text
