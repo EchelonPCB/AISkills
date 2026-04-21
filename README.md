@@ -133,6 +133,20 @@ Check generated files without writing:
 python3 system/scripts/update_index.py --check
 ```
 
+Stage a higher-risk mutated skill from two or more parent skills:
+
+```bash
+python3 system/scripts/stage_mutation.py chat-to-skill skill-mutation --name chat-mutation-lab --goal "combine skill drafting with mutation validation"
+```
+
+Promote an approved staged mutation into the live `skills/` folder:
+
+```bash
+python3 system/scripts/promote_mutation.py chat-mutation-lab --approve
+```
+
+The matching shell aliases are `m` for staging and `mup` for promotion when your `.zshrc` shortcuts are installed.
+
 ## Version History
 `CHANGELOG.md` is the skill's required version history.
 
@@ -306,3 +320,224 @@ Save staged changes as a new commit with a message.
 
 git push
 Upload local commits to the remote repository.
+
+## Current Alias And Command Quick Reference
+
+This section reflects the current `.zshrc` shortcuts and the current script argument formats. Prefer this section when it conflicts with older preserved command notes above.
+
+### Start A Skill Session
+
+Expected shell setup:
+
+```bash
+source ~/.zshrc
+skroot
+```
+
+Expected result:
+
+```text
+Terminal is in ~/Desktop/AISkills and the sk* aliases are available.
+```
+
+### Create A New Skill
+
+Full command format:
+
+```bash
+./system/scripts/new_skill.sh <skill-name> [domain]
+```
+
+Alias format:
+
+```bash
+sknew <skill-name> [domain]
+n <skill-name> [domain]
+```
+
+Example:
+
+```bash
+sknew donor-intake triage
+```
+
+Expected generated format:
+
+```text
+skills/donor-intake/
+  CURRENT
+  V001/skill.md
+  archived/.gitkeep
+  references/.gitkeep
+  assets/.gitkeep
+  scripts/.gitkeep
+  CHANGELOG.md
+```
+
+Expected generated frontmatter pattern:
+
+```yaml
+skill_id: "epcb.triage.donor_intake"
+name: "donor-intake"
+```
+
+After creating a new skill, edit `skills/<skill-name>/V001/skill.md` to replace scaffold content, then run:
+
+```bash
+skhealth
+```
+
+### Stage A Skill Mutation
+
+Use mutation staging when combining two or more existing skills into a higher-risk candidate skill.
+
+Full command format:
+
+```bash
+python3 system/scripts/stage_mutation.py <parent-skill-1> <parent-skill-2> [parent-skill-3] --name <mutation-name> --goal "one sentence goal"
+```
+
+Alias format:
+
+```bash
+skmutate <parent-skill-1> <parent-skill-2> --name <mutation-name> --goal "one sentence goal"
+m <parent-skill-1> <parent-skill-2> --name <mutation-name> --goal "one sentence goal"
+```
+
+Example:
+
+```bash
+m chat-to-skill skill-mutation --name cts-mutation-lab --goal "combine skill drafting with mutation validation"
+```
+
+Expected generated format:
+
+```text
+workspace/mutations/cts-mutation-lab/
+  CURRENT
+  V001/skill.md
+  parents/<parent-skill>/<V###>/skill.md
+  references/mutation-brief.md
+  references/parent-map.md
+  references/merge-notes.md
+  references/promotion-checklist.md
+  archived/
+  assets/
+  scripts/
+  CHANGELOG.md
+```
+
+Use dry run when you only want to confirm parent resolution:
+
+```bash
+m chat-to-skill skill-mutation --name cts-mutation-lab --goal "combine skill drafting with mutation validation" --dry-run
+```
+
+### Promote An Approved Mutation
+
+Promotion moves a staged mutation into the live `skills/` folder only after the staged package is complete.
+
+Before promotion, `workspace/mutations/<mutation-name>/references/promotion-checklist.md` must include:
+
+```text
+Recommendation: promote
+```
+
+Full command format:
+
+```bash
+python3 system/scripts/promote_mutation.py <mutation-name> --approve
+```
+
+Alias format:
+
+```bash
+skpromotemutation <mutation-name> --approve
+mup <mutation-name> --approve
+```
+
+Example:
+
+```bash
+mup cts-mutation-lab --approve
+```
+
+Expected promoted format:
+
+```text
+skills/cts-mutation-lab/
+  CURRENT
+  V001/skill.md
+  archived/.gitkeep
+  references/.gitkeep
+  assets/.gitkeep
+  scripts/.gitkeep
+  CHANGELOG.md
+```
+
+Promotion also runs:
+
+```bash
+python3 system/scripts/update_index.py
+python3 system/scripts/validate_skills.py
+python3 system/scripts/update_index.py --check
+```
+
+Bump a staged mutation version when you want to preserve the current candidate and keep iterating:
+
+```bash
+python3 system/scripts/bump_mutation.py <mutation-name> "reason for the staged version bump"
+```
+
+### Alias Categories
+
+Repo navigation:
+
+```bash
+skroot='cd ~/Desktop/AISkills'
+skcode='code .'
+```
+
+Skill lifecycle:
+
+```bash
+sknew='./system/scripts/new_skill.sh'
+skbump='./system/scripts/bump_skill.sh'
+skarch='./system/scripts/archive_skill.sh'
+```
+
+Mutation staging and promotion:
+
+```bash
+skmutate='python3 ~/Desktop/AISkills/system/scripts/stage_mutation.py'
+skpromotemutation='python3 ~/Desktop/AISkills/system/scripts/promote_mutation.py'
+```
+
+Indexing and validation:
+
+```bash
+skindex='python3 ./system/scripts/update_index.py'
+skcheck='python3 ./system/scripts/update_index.py --check'
+skvalidate='python3 ./system/scripts/validate_skills.py'
+skhealth='python3 ./system/scripts/update_index.py && python3 ./system/scripts/validate_skills.py && python3 ./system/scripts/update_index.py --check'
+```
+
+Automation:
+
+```bash
+skwatch='./system/scripts/watch_indexes.sh'
+```
+
+Short forms:
+
+```bash
+n='sknew'
+b='skbump'
+i='skindex'
+c='skcheck'
+v='skvalidate'
+h='skhealth'
+a='skarch'
+m='skmutate'
+mup='skpromotemutation'
+```

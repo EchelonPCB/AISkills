@@ -63,3 +63,11 @@
 - Added Offline Copy-Paste Mode for assistants without repository or manifest access
 - Required manifest-unavailable disclosure in validation notes
 - Rejected `VP###` and separate production folders in favor of `V###`, `CURRENT`, and `MANIFEST.md`
+## V014
+- Bumped from V013 on 2026-04-20
+- Harden copy-paste output with identity lock, exact header scan, single-artifact mode, and changelog sanitation
+- Added exact single-artifact output contract for generated `skill.md` responses.
+- Added user-supplied identity lock and canonical folder-name derivation rules.
+- Added literal required-header preflight for level-one heading conformance.
+- Added CHANGELOG sanitation rules banning scaffold, template, placeholder, and TODO language.
+- Removed external repo command, support plan, and validation note requirements from copy-paste skill output.
