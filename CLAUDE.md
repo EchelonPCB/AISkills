@@ -12,6 +12,17 @@ Claude should operate this repository through AISkills runtime routing.
 
 When MCP tools are available, use them before raw file reads or shell commands.
 
+Prefer these MCP tools when available:
+
+- `list_skills`
+- `select_skill`
+- `read_skill`
+- `validate_repo`
+- `list_mutations`
+- `validate_mutation`
+
+If MCP tools are unavailable, use `system/indexes/skill-index.json` or `MANIFEST.md` for discovery before reading any skill body.
+
 For full Claude project instructions, read:
 
 ```text
@@ -37,6 +48,7 @@ If selection is low confidence or ambiguous, inspect the top candidates or ask f
 ## Hard Rules
 
 - `MANIFEST.md` is the only skill discovery layer.
+- `system/indexes/skill-index.json` is the machine-readable mirror of `MANIFEST.md`.
 - Do not read all skill files before choosing.
 - Do not use archived versions unless asked.
 - Do not use deprecated discovery files.

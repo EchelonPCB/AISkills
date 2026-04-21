@@ -8,11 +8,20 @@ Operate AISkills as a token-efficient skill runtime. Use `MANIFEST.md` as the on
 
 When MCP tools are available, use governed MCP tools before raw file reads or shell commands. Raw file edits are a fallback, not the primary interface.
 
+Preferred MCP tools:
+
+- `list_skills`
+- `select_skill`
+- `read_skill`
+- `validate_repo`
+- `list_mutations`
+- `validate_mutation`
+
 ## Runtime Loop
 
 Before answering a task:
 
-1. Read `MANIFEST.md`.
+1. Read `system/indexes/skill-index.json` when available; otherwise read `MANIFEST.md`.
 2. Select the best matching skill using `skill_name`, `skill_id`, `description`, and `trigger_keywords`.
 3. Read only the selected row's `current_path`.
 4. Execute the selected `skill.md`.
@@ -39,7 +48,8 @@ If the selector reports low confidence or ambiguity, inspect the top candidates 
 - Do not read archived versions unless the user explicitly asks for history.
 - Do not use `system/indexes/skill-master-index.md`; it is deprecated.
 - Do not read support indexes until after a skill is selected.
-- Prefer `MANIFEST.md` plus one live `skill.md`.
+- Prefer `system/indexes/skill-index.json` or `MANIFEST.md` plus one live `skill.md`.
+- Prefer `mcp_gateway.py` or MCP tools when available because they return compact JSON.
 - Read `references/`, `assets/`, or `scripts/` only when the live skill says they are needed.
 - Summarize long support files instead of copying them into the response.
 
@@ -119,7 +129,8 @@ Use the lowest necessary human-in-the-loop level.
 
 - Use `skill-mutation` for any request to combine, merge, synthesize, evolve, or mutate two or more skills.
 - Stage mutations under `workspace/mutations/<mutation-name>/`.
-- Do not promote a mutated skill until parent mapping, conflict matrix, validation plan, validation results, and explicit human approval exist.
+- Do not promote a mutated skill until `CURRENT`, `V###/skill.md`, parent snapshots, mutation references, promotion checklist, and explicit human approval exist.
+- Validate staged mutations with `python3 system/scripts/validate_mutation.py <mutation-name>` before promotion.
 - Do not concatenate parent skill files.
 - Do not create `VP###`, `production/`, or alternate production folders.
 

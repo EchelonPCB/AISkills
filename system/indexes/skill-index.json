@@ -1,0 +1,346 @@
+{
+  "discovery_rule": "Use only live records from this index or MANIFEST.md. Do not scan archived versions unless explicitly requested.",
+  "schema_version": 1,
+  "skills": [
+    {
+      "current_path": "skills/acdc-governance-system/V002/skill.md",
+      "current_version": "V002",
+      "description": "Execute ACDC governance decisions for membership, voting, 4P approval, committees, and Board authority.",
+      "folder": "acdc-governance-system",
+      "skill_id": "epcb.governance.acdc_governance_system",
+      "skill_name": "acdc-governance-system",
+      "support_paths": {
+        "assets": "skills/acdc-governance-system/assets",
+        "references": "skills/acdc-governance-system/references",
+        "scripts": "skills/acdc-governance-system/scripts"
+      },
+      "trigger_keywords": [
+        "acdc governance",
+        "membership enforcement",
+        "4P approval",
+        "board voting",
+        "committee structure",
+        "status management"
+      ],
+      "trigger_keywords_raw": "acdc governance, membership enforcement, 4P approval, board voting, committee structure, status management"
+    },
+    {
+      "current_path": "skills/acdc-ssd-program-scope-lock-delivery/V001/skill.md",
+      "current_version": "V001",
+      "description": "Define, sequence, and govern ACDC Skill Succession Developments as a constitution-aligned standing program with advisor participation, certificates, assessments, and BCC transfer mentoring boundaries.",
+      "folder": "acdc-ssd-program-scope-lock-delivery",
+      "skill_id": "epcb.acdc.ssd_program_scope_lock_delivery",
+      "skill_name": "acdc-ssd-program-scope-lock-delivery",
+      "support_paths": {
+        "assets": "skills/acdc-ssd-program-scope-lock-delivery/assets",
+        "references": "skills/acdc-ssd-program-scope-lock-delivery/references",
+        "scripts": "skills/acdc-ssd-program-scope-lock-delivery/scripts"
+      },
+      "trigger_keywords": [
+        "acdc ssd",
+        "skill succession development",
+        "constitution aligned program",
+        "advisor skill module",
+        "bcc transfer mentoring",
+        "program scope lock"
+      ],
+      "trigger_keywords_raw": "acdc ssd, skill succession development, constitution aligned program, advisor skill module, bcc transfer mentoring, program scope lock"
+    },
+    {
+      "current_path": "skills/chat-to-skill/V014/skill.md",
+      "current_version": "V014",
+      "description": "Convert raw chats or chat summaries into structured, reusable, version-ready AISkills skill files.",
+      "folder": "chat-to-skill",
+      "skill_id": "epcb.meta.chat_to_skill",
+      "skill_name": "chat-to-skill",
+      "support_paths": {
+        "assets": "skills/chat-to-skill/assets",
+        "references": "skills/chat-to-skill/references",
+        "scripts": "skills/chat-to-skill/scripts"
+      },
+      "trigger_keywords": [
+        "chat",
+        "classify chat",
+        "apply skill",
+        "extract skill",
+        "workflow intake",
+        "copy paste skill",
+        "epcb id",
+        "old AI chat"
+      ],
+      "trigger_keywords_raw": "chat, classify chat, apply skill, extract skill, workflow intake, copy paste skill, epcb id, old AI chat"
+    },
+    {
+      "current_path": "skills/contract-gen/V003/skill.md",
+      "current_version": "V003",
+      "description": "Generate a complete, BoD-ready ACDC MVP Deliverable Contract document from a validated parameter set, with all fields filled and enforcement language included.",
+      "folder": "contract-gen",
+      "skill_id": "epcb.contracts.contract_gen",
+      "skill_name": "contract-gen",
+      "support_paths": {
+        "assets": "skills/contract-gen/assets",
+        "references": "skills/contract-gen/references",
+        "scripts": "skills/contract-gen/scripts"
+      },
+      "trigger_keywords": [
+        "contract",
+        "generate contract",
+        "deliverable contract",
+        "fill document",
+        "bod contract"
+      ],
+      "trigger_keywords_raw": "contract, generate contract, deliverable contract, fill document, bod contract"
+    },
+    {
+      "current_path": "skills/contract-to-skill/V002/skill.md",
+      "current_version": "V002",
+      "description": "Convert an ACDC MVP Deliverable Contract document into a complete, reusable skill.md file by mapping contract fields to the AISkills standard structure.",
+      "folder": "contract-to-skill",
+      "skill_id": "epcb.meta.contract_to_skill",
+      "skill_name": "contract-to-skill",
+      "support_paths": {
+        "assets": "skills/contract-to-skill/assets",
+        "references": "skills/contract-to-skill/references",
+        "scripts": "skills/contract-to-skill/scripts"
+      },
+      "trigger_keywords": [
+        "contract",
+        "convert contract",
+        "extract workflow",
+        "create skill",
+        "skill intake"
+      ],
+      "trigger_keywords_raw": "contract, convert contract, extract workflow, create skill, skill intake"
+    },
+    {
+      "current_path": "skills/contract-type/V003/skill.md",
+      "current_version": "V003",
+      "description": "Classify and validate contract parameters before downstream contract generation.",
+      "folder": "contract-type",
+      "skill_id": "epcb.contracts.contract_type",
+      "skill_name": "contract-type",
+      "support_paths": {
+        "assets": "skills/contract-type/assets",
+        "references": "skills/contract-type/references",
+        "scripts": "skills/contract-type/scripts"
+      },
+      "trigger_keywords": [
+        "contract",
+        "classify contract",
+        "contract type",
+        "validate parameters",
+        "scope"
+      ],
+      "trigger_keywords_raw": "contract, classify contract, contract type, validate parameters, scope"
+    },
+    {
+      "current_path": "skills/dual-channel-initiative-positioning/V001/skill.md",
+      "current_version": "V001",
+      "description": "Position initiatives that exist both inside and outside institutional structures without undermining authority or role legitimacy.",
+      "folder": "dual-channel-initiative-positioning",
+      "skill_id": "epcb.governance.dual_channel_initiative_positioning",
+      "skill_name": "dual-channel-initiative-positioning",
+      "support_paths": {
+        "assets": "skills/dual-channel-initiative-positioning/assets",
+        "references": "skills/dual-channel-initiative-positioning/references",
+        "scripts": "skills/dual-channel-initiative-positioning/scripts"
+      },
+      "trigger_keywords": [
+        "position initiative",
+        "senate vs org",
+        "institutional alignment",
+        "leadership meeting prep",
+        "stakeholder framing",
+        "dual role strategy"
+      ],
+      "trigger_keywords_raw": "position initiative, senate vs org, institutional alignment, leadership meeting prep, stakeholder framing, dual role strategy"
+    },
+    {
+      "current_path": "skills/engineering-work-record-generation/V002/skill.md",
+      "current_version": "V002",
+      "description": "Generate baseline or continuation engineering work records from session context without duplicating prior documentation.",
+      "folder": "engineering-work-record-generation",
+      "skill_id": "epcb.ops.engineering_work_record_generation",
+      "skill_name": "engineering-work-record-generation",
+      "support_paths": {
+        "assets": "skills/engineering-work-record-generation/assets",
+        "references": "skills/engineering-work-record-generation/references",
+        "scripts": "skills/engineering-work-record-generation/scripts"
+      },
+      "trigger_keywords": [
+        "engineering record",
+        "work log",
+        "lab session",
+        "document progress",
+        "generate report",
+        "continuation record",
+        "baseline record",
+        "technical summary"
+      ],
+      "trigger_keywords_raw": "engineering record, work log, lab session, document progress, generate report, continuation record, baseline record, technical summary"
+    },
+    {
+      "current_path": "skills/infographic-generator/V003/skill.md",
+      "current_version": "V003",
+      "description": "Creates brand-aligned infographic concepts, visualization options, and image-generation prompts from user content.",
+      "folder": "infographic-generator",
+      "skill_id": "epcb.content.infographic_generator",
+      "skill_name": "infographic-generator",
+      "support_paths": {
+        "assets": "skills/infographic-generator/assets",
+        "references": "skills/infographic-generator/references",
+        "scripts": "skills/infographic-generator/scripts"
+      },
+      "trigger_keywords": [
+        "infographic",
+        "generate graphic",
+        "visualize content",
+        "image prompt",
+        "design concept"
+      ],
+      "trigger_keywords_raw": "infographic, generate graphic, visualize content, image prompt, design concept"
+    },
+    {
+      "current_path": "skills/jetson-multinode-devops/V002/skill.md",
+      "current_version": "V002",
+      "description": "Set up and operate an SSH/SCP-based multi-node Jetson development and deployment workflow.",
+      "folder": "jetson-multinode-devops",
+      "skill_id": "epcb.ops.jetson_multinode_devops",
+      "skill_name": "jetson-multinode-devops",
+      "support_paths": {
+        "assets": "skills/jetson-multinode-devops/assets",
+        "references": "skills/jetson-multinode-devops/references",
+        "scripts": "skills/jetson-multinode-devops/scripts"
+      },
+      "trigger_keywords": [
+        "jetson",
+        "ssh",
+        "scp",
+        "deploy",
+        "push",
+        "pull",
+        "zshrc",
+        "multi-node",
+        "hotspot",
+        "usb networking"
+      ],
+      "trigger_keywords_raw": "jetson, ssh, scp, deploy, push, pull, zshrc, multi-node, hotspot, usb networking"
+    },
+    {
+      "current_path": "skills/marketing-guns-blazing/V001/skill.md",
+      "current_version": "V001",
+      "description": "Execute high-intensity, low-resource student organization marketing focused on lead generation, filtering, and conversion into active contributors.",
+      "folder": "marketing-guns-blazing",
+      "skill_id": "epcb.acdc.marketing_guns_blazing",
+      "skill_name": "marketing-guns-blazing",
+      "support_paths": {
+        "assets": "skills/marketing-guns-blazing/assets",
+        "references": "skills/marketing-guns-blazing/references",
+        "scripts": "skills/marketing-guns-blazing/scripts"
+      },
+      "trigger_keywords": [
+        "marketing blitz",
+        "student recruitment",
+        "lead generation",
+        "org growth",
+        "campus outreach"
+      ],
+      "trigger_keywords_raw": "marketing blitz, student recruitment, lead generation, org growth, campus outreach"
+    },
+    {
+      "current_path": "skills/naasc-pilot-execution/V001/skill.md",
+      "current_version": "V001",
+      "description": "Design and execute a minimal, high-signal multi-university AI and autonomous systems showcase using a constrained pilot framework.",
+      "folder": "naasc-pilot-execution",
+      "skill_id": "epcb.program.naasc_pilot_execution",
+      "skill_name": "naasc-pilot-execution",
+      "support_paths": {
+        "assets": "skills/naasc-pilot-execution/assets",
+        "references": "skills/naasc-pilot-execution/references",
+        "scripts": "skills/naasc-pilot-execution/scripts"
+      },
+      "trigger_keywords": [
+        "naasc",
+        "showcase execution",
+        "event pipeline",
+        "project intake",
+        "judge coordination",
+        "pilot event",
+        "system validation"
+      ],
+      "trigger_keywords_raw": "naasc, showcase execution, event pipeline, project intake, judge coordination, pilot event, system validation"
+    },
+    {
+      "current_path": "skills/retrospective-delivery-brutal/V001/skill.md",
+      "current_version": "V001",
+      "description": "Deliver a high-signal, evidence-backed retrospective using enforced structure, system framing, and brutal clarity for engineering and organizational analysis.",
+      "folder": "retrospective-delivery-brutal",
+      "skill_id": "epcb.analysis.retrospective_delivery_brutal",
+      "skill_name": "retrospective-delivery-brutal",
+      "support_paths": {
+        "assets": "skills/retrospective-delivery-brutal/assets",
+        "references": "skills/retrospective-delivery-brutal/references",
+        "scripts": "skills/retrospective-delivery-brutal/scripts"
+      },
+      "trigger_keywords": [
+        "retrospective",
+        "deliver retrospective",
+        "brutal analysis",
+        "executive reflection",
+        "summarize progress",
+        "structured retrospective",
+        "monthly review"
+      ],
+      "trigger_keywords_raw": "retrospective, deliver retrospective, brutal analysis, executive reflection, summarize progress, structured retrospective, monthly review"
+    },
+    {
+      "current_path": "skills/skill-mutation/V003/skill.md",
+      "current_version": "V003",
+      "description": "Stage, synthesize, version, and promotion-gate a mutated skill from two or more parent skills using a skill-like workspace.",
+      "folder": "skill-mutation",
+      "skill_id": "epcb.meta.skill_mutation",
+      "skill_name": "skill-mutation",
+      "support_paths": {
+        "assets": "skills/skill-mutation/assets",
+        "references": "skills/skill-mutation/references",
+        "scripts": "skills/skill-mutation/scripts"
+      },
+      "trigger_keywords": [
+        "mutation",
+        "combine",
+        "mutate skill",
+        "combine skills",
+        "skill mutation",
+        "merge workflows",
+        "staged skill validation",
+        "parent skill map",
+        "m command",
+        "promote mutation",
+        "mutation workspace"
+      ],
+      "trigger_keywords_raw": "mutation, combine, mutate skill, combine skills, skill mutation, merge workflows, staged skill validation, parent skill map, m command, promote mutation, mutation workspace"
+    },
+    {
+      "current_path": "skills/ssunc-multi-institution-integration/V001/skill.md",
+      "current_version": "V001",
+      "description": "Define and execute a standardized multi-institution autonomous systems testbed using shared environment constraints and independent vehicle implementations.",
+      "folder": "ssunc-multi-institution-integration",
+      "skill_id": "epcb.ssunc.multi_institution_integration",
+      "skill_name": "ssunc-multi-institution-integration",
+      "support_paths": {
+        "assets": "skills/ssunc-multi-institution-integration/assets",
+        "references": "skills/ssunc-multi-institution-integration/references",
+        "scripts": "skills/ssunc-multi-institution-integration/scripts"
+      },
+      "trigger_keywords": [
+        "ssunc integration",
+        "multi school robotics",
+        "autonomy testbed setup",
+        "vehicle environment separation",
+        "rc autonomy competition"
+      ],
+      "trigger_keywords_raw": "ssunc integration, multi school robotics, autonomy testbed setup, vehicle environment separation, rc autonomy competition"
+    }
+  ],
+  "source": "AISkills"
+}

@@ -2,6 +2,7 @@ from pathlib import Path
 import re
 import sys
 
+sys.dont_write_bytecode = True
 from update_index import collect_skills
 
 ROOT = Path(".")

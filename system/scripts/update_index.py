@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from pathlib import Path
 import argparse
+import json
 import re
 import sys
 
@@ -152,6 +153,37 @@ def render_manifest(records):
     return "\n".join(lines) + "\n"
 
 
+def render_skill_index_json(records):
+    payload = {
+        "schema_version": 1,
+        "source": "AISkills",
+        "discovery_rule": "Use only live records from this index or MANIFEST.md. Do not scan archived versions unless explicitly requested.",
+        "skills": [
+            {
+                "skill_name": record.name,
+                "folder": record.folder,
+                "skill_id": record.skill_id,
+                "description": record.description,
+                "trigger_keywords": [
+                    keyword.strip()
+                    for keyword in record.trigger_keywords.split(",")
+                    if keyword.strip()
+                ],
+                "trigger_keywords_raw": record.trigger_keywords,
+                "current_version": record.current_version,
+                "current_path": record.current_path.as_posix(),
+                "support_paths": {
+                    "references": f"skills/{record.folder}/references",
+                    "assets": f"skills/{record.folder}/assets",
+                    "scripts": f"skills/{record.folder}/scripts",
+                },
+            }
+            for record in records
+        ],
+    }
+    return json.dumps(payload, indent=2, sort_keys=True) + "\n"
+
+
 def is_indexable_support_file(path: Path):
     return path.name not in {".gitkeep", ".DS_Store"} and path.is_file()
 
@@ -217,6 +249,7 @@ def main():
     INDEXES.mkdir(parents=True, exist_ok=True)
     generated = {
         ROOT / "MANIFEST.md": render_manifest(records),
+        INDEXES / "skill-index.json": render_skill_index_json(records),
         INDEXES / "reference-index.md": render_support_index("REFERENCE INDEX", "references"),
         INDEXES / "asset-index.md": render_support_index("ASSET INDEX", "assets"),
         INDEXES / "script-index.md": render_support_index("SCRIPT INDEX", "scripts"),

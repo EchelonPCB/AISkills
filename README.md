@@ -102,6 +102,44 @@ For machine-readable output:
 python3 system/scripts/select_skill.py "turn this lab chat into a formal engineering record" --json
 ```
 
+### MCP Staging
+
+AISkills now has an MCP staging layer for token-efficient tool access:
+
+```text
+system/indexes/skill-index.json
+system/scripts/mcp_gateway.py
+system/scripts/validate_mutation.py
+system/mcp/aiskills_server.py
+system/mcp/README.md
+```
+
+Use the JSON gateway before connecting a full MCP host:
+
+```bash
+python3 system/scripts/mcp_gateway.py list-skills
+python3 system/scripts/mcp_gateway.py select-skill "turn this chat into a skill"
+python3 system/scripts/mcp_gateway.py read-skill chat-to-skill
+python3 system/scripts/mcp_gateway.py validate-repo
+python3 system/scripts/mcp_gateway.py list-mutations
+python3 system/scripts/mcp_gateway.py validate-mutation chat-to-contracts
+```
+
+The local MCP server lives in:
+
+```text
+system/mcp/aiskills_server.py
+```
+
+Connection examples live in:
+
+```text
+system/mcp/claude_desktop_config.example.json
+.mcp.example.json
+```
+
+Start with read-only MCP tools. Do not expose promotion, archive, deletion, commit, or push tools until routing and validation behavior are stable.
+
 ## Commands
 Create a skill:
 
