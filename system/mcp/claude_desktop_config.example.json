@@ -3,10 +3,10 @@
     "aiskills": {
       "command": "/usr/local/opt/python@3.14/bin/python3.14",
       "args": [
-        "/Users/polaszwaczka/Desktop/AISkills/system/mcp/aiskills_server.py"
+        "/Users/polaszwaczka/Desktop/AIGST/repos/AISkills/system/mcp/aiskills_server.py"
       ],
       "env": {
-        "PYTHONPATH": "/Users/polaszwaczka/Desktop/AISkills/system/mcp/.venv/lib/python3.14/site-packages"
+        "PYTHONPATH": "/Users/polaszwaczka/Desktop/AIGST/repos/AISkills/system/mcp/.venv/lib/python3.14/site-packages"
       }
     }
   }

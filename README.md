@@ -134,7 +134,7 @@ system/mcp/aiskills_server.py
 Set up the MCP Python environment without `uv`:
 
 ```bash
-cd /Users/polaszwaczka/Desktop/AISkills/system/mcp
+cd /Users/polaszwaczka/Desktop/AIGST/repos/AISkills/system/mcp
 chmod +x setup_mcp_env.sh run_aiskills_mcp.sh
 ./setup_mcp_env.sh
 ```
@@ -258,7 +258,7 @@ Centralized modular skill system for ACDC.
 AISkills Command Reference (Categorized)
 System Initialization & Bring-Up
 Command	When to Run	Purpose
-cd ~/Desktop/AISkills	Start of every session	Enter repo root so all scripts work
+cd ~/Desktop/AIGST/repos/AISkills	Start of every session	Enter repo root so all scripts work
 source ~/.zshrc	New terminal / after edits	Reload aliases (sk* commands)
 chmod +x system/scripts/*.sh	First setup / after clone	Ensure scripts are executable
 python3 system/scripts/update_index.py	After pull / startup	Rebuild all indexes
@@ -299,7 +299,7 @@ chmod +x .git/hooks/post-commit	After creating hook	Activate git automation
 code ~/.zshrc	Updating aliases	Edit command shortcuts
 Recommended Daily Workflow
 Step	Command
-Enter repo	cd ~/Desktop/AISkills
+Enter repo	cd ~/Desktop/AIGST/repos/AISkills
 Sync repo	git pull origin main
 Start watcher	./system/scripts/watch_indexes.sh
 Open workspace	code .
@@ -309,7 +309,7 @@ Commit	git add . && git commit -m "..."
 Push	git push origin main
 Recommended “Return After Months” Workflow
 Step	Command
-Enter repo	cd ~/Desktop/AISkills
+Enter repo	cd ~/Desktop/AIGST/repos/AISkills
 Reload shell	source ~/.zshrc
 Fix permissions	chmod +x system/scripts/*.sh
 Pull latest	git pull origin main
@@ -387,7 +387,7 @@ skroot
 Expected result:
 
 ```text
-Terminal is in ~/Desktop/AISkills and the sk* aliases are available.
+Terminal is in ~/Desktop/AIGST/repos/AISkills and the sk* aliases are available.
 ```
 
 ### Create A New Skill
@@ -544,7 +544,7 @@ python3 system/scripts/bump_mutation.py <mutation-name> "reason for the staged v
 Repo navigation:
 
 ```bash
-skroot='cd ~/Desktop/AISkills'
+skroot='cd ~/Desktop/AIGST/repos/AISkills'
 skcode='code .'
 ```
 
@@ -559,8 +559,8 @@ skarch='./system/scripts/archive_skill.sh'
 Mutation staging and promotion:
 
 ```bash
-skmutate='python3 ~/Desktop/AISkills/system/scripts/stage_mutation.py'
-skpromotemutation='python3 ~/Desktop/AISkills/system/scripts/promote_mutation.py'
+skmutate='python3 ~/Desktop/AIGST/repos/AISkills/system/scripts/stage_mutation.py'
+skpromotemutation='python3 ~/Desktop/AIGST/repos/AISkills/system/scripts/promote_mutation.py'
 ```
 
 Indexing and validation:
@@ -622,7 +622,7 @@ Those workflows are intentionally not exposed through MCP yet.
 From the repo root:
 
 ```bash
-cd /Users/polaszwaczka/Desktop/AISkills
+cd /Users/polaszwaczka/Desktop/AIGST/repos/AISkills
 chmod +x system/mcp/setup_mcp_env.sh system/mcp/run_aiskills_mcp.sh
 cd system/mcp
 ./setup_mcp_env.sh
@@ -652,6 +652,8 @@ This launches the MCP server and talks to it with a local MCP client:
 ```bash
 system/mcp/.venv/bin/python system/mcp/smoke_test_client.py
 ```
+
+The smoke test is a script, not a Claude prompt. It uses `chat-to-skill` (CTS) as the stable sample skill for `select_skill` and `read_skill`; it does not execute CTS or generate a new skill.
 
 Expected result:
 
@@ -693,10 +695,10 @@ Use this config:
     "aiskills": {
       "command": "/usr/local/opt/python@3.14/bin/python3.14",
       "args": [
-        "/Users/polaszwaczka/Desktop/AISkills/system/mcp/aiskills_server.py"
+        "/Users/polaszwaczka/Desktop/AIGST/repos/AISkills/system/mcp/aiskills_server.py"
       ],
       "env": {
-        "PYTHONPATH": "/Users/polaszwaczka/Desktop/AISkills/system/mcp/.venv/lib/python3.14/site-packages"
+        "PYTHONPATH": "/Users/polaszwaczka/Desktop/AIGST/repos/AISkills/system/mcp/.venv/lib/python3.14/site-packages"
       }
     }
   }

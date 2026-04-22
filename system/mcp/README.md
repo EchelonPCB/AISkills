@@ -59,7 +59,7 @@ python3 system/scripts/mcp_gateway.py validate-mutation chat-to-contracts
 Use the venv setup path on macOS when `uv` is not installed:
 
 ```bash
-cd /Users/polaszwaczka/Desktop/AISkills/system/mcp
+cd /Users/polaszwaczka/Desktop/AIGST/repos/AISkills/system/mcp
 chmod +x setup_mcp_env.sh run_aiskills_mcp.sh
 ./setup_mcp_env.sh
 ```
@@ -67,12 +67,14 @@ chmod +x setup_mcp_env.sh run_aiskills_mcp.sh
 The server uses stdio transport. When run directly, it waits for an MCP client to speak JSON-RPC over stdin/stdout.
 Use `system/mcp/smoke_test_client.py` from the repo root for manual protocol testing.
 
+The smoke test is a script, not a Claude prompt. It uses `chat-to-skill` (CTS) as the stable sample skill for routing and reading checks; it does not execute CTS or generate a new skill.
+
 ## Optional uv Runtime
 
 If you later install `uv`, this also works:
 
 ```bash
-cd /Users/polaszwaczka/Desktop/AISkills/system/mcp
+cd /Users/polaszwaczka/Desktop/AIGST/repos/AISkills/system/mcp
 uv sync
 uv run aiskills_server.py
 ```
@@ -107,7 +109,7 @@ Do not commit a machine-specific `.mcp.json` unless the path and launch command 
 
 ## Connection Model
 
-1. Claude launches `/usr/local/opt/python@3.14/bin/python3.14 /Users/polaszwaczka/Desktop/AISkills/system/mcp/aiskills_server.py`.
+1. Claude launches `/usr/local/opt/python@3.14/bin/python3.14 /Users/polaszwaczka/Desktop/AIGST/repos/AISkills/system/mcp/aiskills_server.py`.
 2. `aiskills_server.py` exposes MCP tools.
 3. Tool calls delegate to `system/scripts/mcp_gateway.py`.
 4. The gateway returns compact JSON.
