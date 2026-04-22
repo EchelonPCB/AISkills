@@ -3,11 +3,11 @@
   "schema_version": 1,
   "skills": [
     {
-      "current_path": "skills/contract-bundle/V002/skill.md",
-      "current_version": "V002",
-      "description": "Unzip a contract bundle and systematically execute each contract skill to deliver all required artifacts and validation outputs.",
+      "current_path": "skills/contract-bundle/V003/skill.md",
+      "current_version": "V003",
+      "description": "Organize one or more contracts with their associated contract-specific skills, then execute the bundle into traceable deliverables, evidence, and handoff records.",
       "folder": "contract-bundle",
-      "skill_id": "epcb.design1.contract_bundle_execution",
+      "skill_id": "epcb.contracts.contract_bundle_execution",
       "skill_name": "Contract Bundle Execution",
       "support_paths": {
         "assets": "skills/contract-bundle/assets",
@@ -16,12 +16,12 @@
       },
       "trigger_keywords": [
         "contract bundle",
-        "unzip",
-        "execute skills",
-        "multi-contract",
-        "deliverables"
+        "execute contracts",
+        "associated skills",
+        "contract deliverables",
+        "bundle execution"
       ],
-      "trigger_keywords_raw": "contract bundle, unzip, execute skills, multi-contract, deliverables"
+      "trigger_keywords_raw": "contract bundle, execute contracts, associated skills, contract deliverables, bundle execution"
     },
     {
       "current_path": "skills/acdc-governance-system/V002/skill.md",
