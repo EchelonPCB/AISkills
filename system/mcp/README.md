@@ -62,10 +62,10 @@ Use the venv setup path on macOS when `uv` is not installed:
 cd /Users/polaszwaczka/Desktop/AISkills/system/mcp
 chmod +x setup_mcp_env.sh run_aiskills_mcp.sh
 ./setup_mcp_env.sh
-./run_aiskills_mcp.sh
 ```
 
 The server uses stdio transport. When run directly, it waits for an MCP client to speak JSON-RPC over stdin/stdout.
+Use `system/mcp/smoke_test_client.py` from the repo root for manual protocol testing.
 
 ## Optional uv Runtime
 
@@ -93,6 +93,8 @@ system/mcp/claude_desktop_config.example.json
 
 into that file, then fully restart Claude Desktop.
 
+The current Claude Desktop example launches Python directly instead of executing `run_aiskills_mcp.sh`. This avoids macOS blocking Claude Desktop from executing shell scripts inside protected folders such as `Desktop`.
+
 ## Claude Code / SDK Connection
 
 Use `.mcp.example.json` as the project-root starting point. Copy it to `.mcp.json` only when you want the repo to auto-advertise the local AISkills MCP server to compatible clients.
@@ -105,7 +107,7 @@ Do not commit a machine-specific `.mcp.json` unless the path and launch command 
 
 ## Connection Model
 
-1. Claude launches `/Users/polaszwaczka/Desktop/AISkills/system/mcp/run_aiskills_mcp.sh`.
+1. Claude launches `/usr/local/opt/python@3.14/bin/python3.14 /Users/polaszwaczka/Desktop/AISkills/system/mcp/aiskills_server.py`.
 2. `aiskills_server.py` exposes MCP tools.
 3. Tool calls delegate to `system/scripts/mcp_gateway.py`.
 4. The gateway returns compact JSON.

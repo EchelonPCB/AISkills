@@ -141,6 +141,8 @@ chmod +x setup_mcp_env.sh run_aiskills_mcp.sh
 
 Then use `run_aiskills_mcp.sh` as the Claude launch command.
 
+For Claude Desktop on macOS, prefer the direct-Python config in `system/mcp/claude_desktop_config.example.json`. This avoids macOS blocking Claude from executing a shell script under `Desktop`.
+
 Connection examples live in:
 
 ```text
@@ -589,3 +591,147 @@ a='skarch'
 m='skmutate'
 mup='skpromotemutation'
 ```
+
+## MCP Easy Operations
+
+Use this section to bring up and verify the local AISkills MCP server before connecting it to Claude.
+
+### What The Smoke Test Means
+
+The MCP smoke test is a connectivity check, not a full product test.
+
+It confirms:
+
+- the MCP Python environment exists
+- the server starts through `system/mcp/run_aiskills_mcp.sh` in local smoke tests
+- an MCP client can initialize a stdio session
+- the server exposes the expected tools
+- `validate_repo`, `select_skill`, and `read_skill` work through MCP
+
+It does not confirm:
+
+- Claude Desktop or Claude Code has loaded the MCP config
+- the assistant will choose the right tool every time
+- each skill is semantically correct
+- write, promotion, archive, commit, or push workflows are available
+
+Those workflows are intentionally not exposed through MCP yet.
+
+### One-Time Setup
+
+From the repo root:
+
+```bash
+cd /Users/polaszwaczka/Desktop/AISkills
+chmod +x system/mcp/setup_mcp_env.sh system/mcp/run_aiskills_mcp.sh
+cd system/mcp
+./setup_mcp_env.sh
+cd ../..
+```
+
+### Fast Local Health Check
+
+This bypasses MCP and checks the repo backend directly:
+
+```bash
+python3 system/scripts/mcp_gateway.py validate-repo
+```
+
+Expected result:
+
+```text
+"ok": true
+"Indexes are consistent"
+"Skills are valid"
+```
+
+### Real MCP Smoke Test
+
+This launches the MCP server and talks to it with a local MCP client:
+
+```bash
+system/mcp/.venv/bin/python system/mcp/smoke_test_client.py
+```
+
+Expected result:
+
+```text
+MCP tools: list_skills, select_skill, read_skill, validate_repo, list_mutations, validate_mutation
+validate_repo ok: True
+select_skill top match: chat-to-skill
+read_skill chat-to-skill ok: True
+MCP smoke test passed
+```
+
+If the test fails, fix that before connecting Claude.
+
+### Do Not Manually Run The Server As A Test
+
+This command starts the MCP stdio server:
+
+```bash
+system/mcp/run_aiskills_mcp.sh
+```
+
+When run directly, it waits for an MCP client and may look stuck. That is normal. Stop it with `Ctrl+C`.
+
+Use `smoke_test_client.py` for manual testing instead.
+
+### Connect Claude Desktop
+
+Claude Desktop reads MCP server configuration from:
+
+```text
+~/Library/Application Support/Claude/claude_desktop_config.json
+```
+
+Use this config:
+
+```json
+{
+  "mcpServers": {
+    "aiskills": {
+      "command": "/usr/local/opt/python@3.14/bin/python3.14",
+      "args": [
+        "/Users/polaszwaczka/Desktop/AISkills/system/mcp/aiskills_server.py"
+      ],
+      "env": {
+        "PYTHONPATH": "/Users/polaszwaczka/Desktop/AISkills/system/mcp/.venv/lib/python3.14/site-packages"
+      }
+    }
+  }
+}
+```
+
+This direct-Python launch avoids macOS blocking Claude Desktop from executing a shell script inside `Desktop`.
+
+After editing the config, fully quit and restart Claude Desktop.
+
+Then ask Claude to verify the connection:
+
+```text
+List the AISkills MCP tools and run validate_repo.
+```
+
+A working connection should show the same six tools and a passing repo validation result.
+
+### Connect Claude Code Later
+
+When using a compatible project-level MCP client, copy the example config:
+
+```bash
+cp .mcp.example.json .mcp.json
+```
+
+Do not commit `.mcp.json` unless the absolute path is intentionally valid for every machine using the repo.
+
+### Normal Bringup Order
+
+Use this order when something changes:
+
+```bash
+python3 system/scripts/mcp_gateway.py validate-repo
+system/mcp/.venv/bin/python system/mcp/smoke_test_client.py
+```
+
+Then connect or restart the MCP host, such as Claude Desktop.

@@ -3,6 +3,27 @@
   "schema_version": 1,
   "skills": [
     {
+      "current_path": "skills/contract-bundle/V002/skill.md",
+      "current_version": "V002",
+      "description": "Unzip a contract bundle and systematically execute each contract skill to deliver all required artifacts and validation outputs.",
+      "folder": "contract-bundle",
+      "skill_id": "epcb.design1.contract_bundle_execution",
+      "skill_name": "Contract Bundle Execution",
+      "support_paths": {
+        "assets": "skills/contract-bundle/assets",
+        "references": "skills/contract-bundle/references",
+        "scripts": "skills/contract-bundle/scripts"
+      },
+      "trigger_keywords": [
+        "contract bundle",
+        "unzip",
+        "execute skills",
+        "multi-contract",
+        "deliverables"
+      ],
+      "trigger_keywords_raw": "contract bundle, unzip, execute skills, multi-contract, deliverables"
+    },
+    {
       "current_path": "skills/acdc-governance-system/V002/skill.md",
       "current_version": "V002",
       "description": "Execute ACDC governance decisions for membership, voting, 4P approval, committees, and Board authority.",
