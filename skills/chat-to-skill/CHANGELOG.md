@@ -71,3 +71,16 @@
 - Added literal required-header preflight for level-one heading conformance.
 - Added CHANGELOG sanitation rules banning scaffold, template, placeholder, and TODO language.
 - Removed external repo command, support plan, and validation note requirements from copy-paste skill output.
+## V015
+- Bumped from V014 on 2026-04-22
+- Separate repo-backed skill writes from offline copy-paste mode and require runtime-target validation for hardware workflows
+- Added Repo-Backed Mode with manifest selection, `new_skill.sh`, `bump_skill.sh`, validation, and no offline manifest assumptions in live skills.
+- Added runtime target gating for physical hardware and remote-runtime workflows.
+- Required generated skills to include `# RALPH Loop` for stronger structure alignment.
+## V016
+- Bumped from V015 on 2026-04-22
+- Compress live CTS body into progressive references and add optional clarification gates for token savings
+- Moved detailed repo-backed, offline copy-paste, format, runtime-target, output, and RALPH rules into skill-local references.
+- Added `assets/governed-skill-template.md` as the reusable generated-skill skeleton.
+- Clarified that CTS does not impose a fixed word or character limit; AISkills validation and token economy are the governing limits.
+- Added one-question clarification guidance for identity, runtime target, destructive scope, and validation authority.

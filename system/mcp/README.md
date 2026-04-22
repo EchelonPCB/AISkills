@@ -34,6 +34,7 @@ Read-only and staging-safe tools:
 
 - `list_skills`: list live skills without reading skill bodies
 - `select_skill`: route a user task using manifest metadata only
+- `skill_meta`: inspect one selected skill's metadata, size, and support files without reading the body
 - `read_skill`: read one selected live skill
 - `validate_repo`: run index and skill validation checks
 - `list_mutations`: list staged mutation workspaces
@@ -48,6 +49,8 @@ From the repo root:
 ```bash
 python3 system/scripts/mcp_gateway.py list-skills
 python3 system/scripts/mcp_gateway.py select-skill "turn this chat into a skill"
+python3 system/scripts/mcp_gateway.py skill-meta chat-to-skill
+python3 system/scripts/mcp_gateway.py read-skill chat-to-skill --no-text
 python3 system/scripts/mcp_gateway.py read-skill chat-to-skill
 python3 system/scripts/mcp_gateway.py validate-repo
 python3 system/scripts/mcp_gateway.py list-mutations
@@ -67,7 +70,7 @@ chmod +x setup_mcp_env.sh run_aiskills_mcp.sh
 The server uses stdio transport. When run directly, it waits for an MCP client to speak JSON-RPC over stdin/stdout.
 Use `system/mcp/smoke_test_client.py` from the repo root for manual protocol testing.
 
-The smoke test is a script, not a Claude prompt. It uses `chat-to-skill` (CTS) as the stable sample skill for routing and reading checks; it does not execute CTS or generate a new skill.
+The smoke test is a script, not a Claude prompt. It uses `chat-to-skill` (CTS) as the stable sample skill for routing, metadata, and reading checks; it does not execute CTS or generate a new skill.
 
 ## Optional uv Runtime
 

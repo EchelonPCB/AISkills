@@ -12,6 +12,7 @@ Preferred MCP tools:
 
 - `list_skills`
 - `select_skill`
+- `skill_meta`
 - `read_skill`
 - `validate_repo`
 - `list_mutations`
@@ -22,10 +23,11 @@ Preferred MCP tools:
 1. Read `system/indexes/skill-index.json` when available; otherwise read `MANIFEST.md`.
 2. Compare the user task against each row's `skill_name`, `skill_id`, `description`, and `trigger_keywords`.
 3. Pick the best match if the match is clear.
-4. Read only `current_path` for that skill.
-5. Follow the selected `skill.md`.
-6. Load support files only when the selected skill requires them.
-7. Return the task result.
+4. Use `skill_meta` or `read-skill --no-text` when only version, size, or support-file information is needed.
+5. Read only `current_path` for that skill when execution requires the body.
+6. Follow the selected `skill.md`.
+7. Load support files only when the selected skill requires them.
+8. Return the task result.
 
 If the match is weak or ambiguous, inspect top candidates or ask for clarification before loading a skill.
 
@@ -43,6 +45,9 @@ If the match is weak or ambiguous, inspect top candidates or ask for clarificati
 - Do not promote staged mutations, archive skills, delete files, commit, or push without explicit human approval.
 - Run at most two validation repair passes before reporting blockers.
 - Do not create `VP###`, `production/`, or alternate production version folders.
+- Ask one concise question when a missing answer changes skill identity, runtime target, destructive scope, or validation authority.
+- Separate development-host checks from target-runtime checks for hardware, remote, cloud, and mixed-runtime work.
+- Do not treat target-only dependencies missing from a development host as code defects.
 
 ## Useful Commands
 
@@ -70,6 +75,8 @@ MCP staging gateway:
 
 ```bash
 python3 system/scripts/mcp_gateway.py select-skill "<task>"
+python3 system/scripts/mcp_gateway.py skill-meta <skill>
+python3 system/scripts/mcp_gateway.py read-skill <skill> --no-text
 python3 system/scripts/mcp_gateway.py validate-repo
 python3 system/scripts/mcp_gateway.py validate-mutation <mutation-name>
 ```

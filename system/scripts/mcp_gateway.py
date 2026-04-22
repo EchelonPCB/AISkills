@@ -53,6 +53,22 @@ def record_to_payload(record) -> dict:
     }
 
 
+def support_file_summary(record) -> dict:
+    skill_dir = ROOT / record.current_path.parents[1]
+    summary = {}
+    for folder in ("references", "assets", "scripts"):
+        path = skill_dir / folder
+        files = []
+        if path.exists():
+            files = [
+                item.relative_to(skill_dir).as_posix()
+                for item in sorted(path.rglob("*"))
+                if item.is_file() and item.name not in {".DS_Store", ".gitkeep"}
+            ]
+        summary[folder] = files
+    return summary
+
+
 def list_skills(args) -> int:
     setup_imports()
     from update_index import collect_skills
@@ -116,7 +132,39 @@ def read_skill(args) -> int:
         return emit({"ok": False, "errors": [f"missing current_path {record.current_path}"]}, 1)
 
     payload = record_to_payload(record)
-    payload.update({"ok": True, "text": path.read_text()})
+    text = path.read_text()
+    payload.update(
+        {
+            "ok": True,
+            "line_count": len(text.splitlines()),
+            "char_count": len(text),
+            "support_files": support_file_summary(record),
+        }
+    )
+    if not args.no_text:
+        payload["text"] = text
+    return emit(payload)
+
+
+def skill_meta(args) -> int:
+    record, errors = resolve_skill(args.skill)
+    if errors:
+        return emit({"ok": False, "errors": errors}, 1)
+
+    path = ROOT / record.current_path
+    if not path.exists():
+        return emit({"ok": False, "errors": [f"missing current_path {record.current_path}"]}, 1)
+
+    text = path.read_text()
+    payload = record_to_payload(record)
+    payload.update(
+        {
+            "ok": True,
+            "line_count": len(text.splitlines()),
+            "char_count": len(text),
+            "support_files": support_file_summary(record),
+        }
+    )
     return emit(payload)
 
 
@@ -203,8 +251,13 @@ def main() -> int:
 
     sub.add_parser("list-skills", help="List live skills from the governed index").set_defaults(func=list_skills)
 
+    meta = sub.add_parser("skill-meta", help="Return live skill metadata, size, and support files without the body")
+    meta.add_argument("skill")
+    meta.set_defaults(func=skill_meta)
+
     read = sub.add_parser("read-skill", help="Read one live skill by folder, name, skill_id, or current_path")
     read.add_argument("skill")
+    read.add_argument("--no-text", action="store_true", help="Return metadata, size, and support files without skill body text")
     read.set_defaults(func=read_skill)
 
     select = sub.add_parser("select-skill", help="Route a task to candidate skills")

@@ -65,6 +65,12 @@ def read_skill(skill: str) -> dict:
 
 
 @mcp.tool()
+def skill_meta(skill: str) -> dict:
+    """Return live skill metadata, size, and support files without reading the body."""
+    return run_gateway("skill-meta", skill)
+
+
+@mcp.tool()
 def validate_repo() -> dict:
     """Run read-only repo consistency checks for live AISkills."""
     return run_gateway("validate-repo")

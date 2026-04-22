@@ -12,6 +12,7 @@ Preferred MCP tools:
 
 - `list_skills`
 - `select_skill`
+- `skill_meta`
 - `read_skill`
 - `validate_repo`
 - `list_mutations`
@@ -23,10 +24,11 @@ Before answering a task:
 
 1. Read `system/indexes/skill-index.json` when available; otherwise read `MANIFEST.md`.
 2. Select the best matching skill using `skill_name`, `skill_id`, `description`, and `trigger_keywords`.
-3. Read only the selected row's `current_path`.
-4. Execute the selected `skill.md`.
-5. Load skill-local support files only when the selected skill explicitly requires them.
-6. If no skill fits, say no AISkills skill applies and proceed with a normal answer.
+3. Use `skill_meta` or `read-skill --no-text` when you only need version, size, or support-file information.
+4. Read only the selected row's `current_path` when you are ready to execute that skill.
+5. Execute the selected `skill.md`.
+6. Load skill-local support files only when the selected skill explicitly requires them.
+7. If no skill fits, say no AISkills skill applies and proceed with a normal answer.
 
 When shell access is available, prefer:
 
@@ -50,6 +52,7 @@ If the selector reports low confidence or ambiguity, inspect the top candidates 
 - Do not read support indexes until after a skill is selected.
 - Prefer `system/indexes/skill-index.json` or `MANIFEST.md` plus one live `skill.md`.
 - Prefer `mcp_gateway.py` or MCP tools when available because they return compact JSON.
+- Prefer `skill_meta` or `read-skill --no-text` over full `read_skill` unless the skill body is needed for execution.
 - Read `references/`, `assets/`, or `scripts/` only when the live skill says they are needed.
 - Summarize long support files instead of copying them into the response.
 
@@ -93,6 +96,14 @@ python3 system/scripts/update_index.py --check
 ```
 
 Do not commit or push unless the user explicitly asks.
+
+## Clarification And Runtime Guards
+
+- Ask one concise question when the missing answer would change skill identity, target runtime, destructive scope, or validation authority.
+- Proceed with explicit assumptions for minor recoverable gaps.
+- For physical hardware, remote hosts, cloud services, or mixed environments, separate development-host checks from target-runtime checks.
+- Missing target-only packages on a development host are environment mismatches, not code defects.
+- For Jetson work, require real target checks for imports, camera, I2C/PCA9685, network bind, and safe-stop behavior before motion.
 
 ## Autonomy And HIL Tiers
 

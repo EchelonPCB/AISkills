@@ -14,6 +14,7 @@ RUNNER = ROOT / "system" / "mcp" / "run_aiskills_mcp.sh"
 EXPECTED_TOOLS = {
     "list_skills",
     "select_skill",
+    "skill_meta",
     "read_skill",
     "validate_repo",
     "list_mutations",
@@ -70,6 +71,19 @@ async def main() -> None:
             print("select_skill top match:", top_match)
             if route_result.isError or top_match != "chat-to-skill":
                 raise SystemExit(first_text(route_result))
+
+            meta_result = await session.call_tool(
+                "skill_meta",
+                {"skill": "chat-to-skill"},
+            )
+            meta_payload = parse_json_result(meta_result)
+            print("skill_meta chat-to-skill lines:", meta_payload.get("line_count"))
+            if (
+                meta_result.isError
+                or meta_payload.get("ok") is not True
+                or "text" in meta_payload
+            ):
+                raise SystemExit(first_text(meta_result))
 
             read_result = await session.call_tool(
                 "read_skill",

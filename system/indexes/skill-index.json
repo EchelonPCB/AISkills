@@ -68,8 +68,8 @@
       "trigger_keywords_raw": "acdc ssd, skill succession development, constitution aligned program, advisor skill module, bcc transfer mentoring, program scope lock"
     },
     {
-      "current_path": "skills/chat-to-skill/V014/skill.md",
-      "current_version": "V014",
+      "current_path": "skills/chat-to-skill/V016/skill.md",
+      "current_version": "V016",
       "description": "Convert raw chats or chat summaries into structured, reusable, version-ready AISkills skill files.",
       "folder": "chat-to-skill",
       "skill_id": "epcb.meta.chat_to_skill",
@@ -246,6 +246,33 @@
         "usb networking"
       ],
       "trigger_keywords_raw": "jetson, ssh, scp, deploy, push, pull, zshrc, multi-node, hotspot, usb networking"
+    },
+    {
+      "current_path": "skills/jpa-module-integration/V002/skill.md",
+      "current_version": "V002",
+      "description": "Integrate new contract deliverable modules into the JPA RC car stack, restructure the repo for runtime, and rewrite the integration loop with updated fusion doctrine and PID steering.",
+      "folder": "jpa-module-integration",
+      "skill_id": "epcb.ops.jpa_module_integration",
+      "skill_name": "jpa-module-integration",
+      "support_paths": {
+        "assets": "skills/jpa-module-integration/assets",
+        "references": "skills/jpa-module-integration/references",
+        "scripts": "skills/jpa-module-integration/scripts"
+      },
+      "trigger_keywords": [
+        "jpa",
+        "jetracer",
+        "demoday",
+        "contract integration",
+        "rc car",
+        "lane detect",
+        "pid steer",
+        "v2i fusion",
+        "ssunc",
+        "module wiring",
+        "deploy jetson"
+      ],
+      "trigger_keywords_raw": "jpa, jetracer, demoday, contract integration, rc car, lane detect, pid steer, v2i fusion, ssunc, module wiring, deploy jetson"
     },
     {
       "current_path": "skills/marketing-guns-blazing/V001/skill.md",

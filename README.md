@@ -119,6 +119,8 @@ Use the JSON gateway before connecting a full MCP host:
 ```bash
 python3 system/scripts/mcp_gateway.py list-skills
 python3 system/scripts/mcp_gateway.py select-skill "turn this chat into a skill"
+python3 system/scripts/mcp_gateway.py skill-meta chat-to-skill
+python3 system/scripts/mcp_gateway.py read-skill chat-to-skill --no-text
 python3 system/scripts/mcp_gateway.py read-skill chat-to-skill
 python3 system/scripts/mcp_gateway.py validate-repo
 python3 system/scripts/mcp_gateway.py list-mutations
@@ -606,7 +608,7 @@ It confirms:
 - the server starts through `system/mcp/run_aiskills_mcp.sh` in local smoke tests
 - an MCP client can initialize a stdio session
 - the server exposes the expected tools
-- `validate_repo`, `select_skill`, and `read_skill` work through MCP
+- `validate_repo`, `select_skill`, `skill_meta`, and `read_skill` work through MCP
 
 It does not confirm:
 
@@ -653,14 +655,15 @@ This launches the MCP server and talks to it with a local MCP client:
 system/mcp/.venv/bin/python system/mcp/smoke_test_client.py
 ```
 
-The smoke test is a script, not a Claude prompt. It uses `chat-to-skill` (CTS) as the stable sample skill for `select_skill` and `read_skill`; it does not execute CTS or generate a new skill.
+The smoke test is a script, not a Claude prompt. It uses `chat-to-skill` (CTS) as the stable sample skill for `select_skill`, `skill_meta`, and `read_skill`; it does not execute CTS or generate a new skill.
 
 Expected result:
 
 ```text
-MCP tools: list_skills, select_skill, read_skill, validate_repo, list_mutations, validate_mutation
+MCP tools: list_skills, select_skill, skill_meta, read_skill, validate_repo, list_mutations, validate_mutation
 validate_repo ok: True
 select_skill top match: chat-to-skill
+skill_meta chat-to-skill lines: <line count>
 read_skill chat-to-skill ok: True
 MCP smoke test passed
 ```
