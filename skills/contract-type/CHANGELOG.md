@@ -13,3 +13,7 @@
 - Bumped from V002 on 2026-04-20
 - Add governed index for autonomous validation compatibility
 
+## V004
+- Bumped from V003 on 2026-04-23
+- Add CTS-style clarification gate and explicit workflow boundaries for contract intake.
+

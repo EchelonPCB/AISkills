@@ -3,8 +3,8 @@
   "schema_version": 1,
   "skills": [
     {
-      "current_path": "skills/contract-bundle/V003/skill.md",
-      "current_version": "V003",
+      "current_path": "skills/contract-bundle/V004/skill.md",
+      "current_version": "V004",
       "description": "Organize one or more contracts with their associated contract-specific skills, then execute the bundle into traceable deliverables, evidence, and handoff records.",
       "folder": "contract-bundle",
       "skill_id": "epcb.contracts.contract_bundle_execution",
@@ -92,8 +92,8 @@
       "trigger_keywords_raw": "chat, classify chat, apply skill, extract skill, workflow intake, copy paste skill, epcb id, old AI chat"
     },
     {
-      "current_path": "skills/contract-gen/V003/skill.md",
-      "current_version": "V003",
+      "current_path": "skills/contract-gen/V004/skill.md",
+      "current_version": "V004",
       "description": "Generate a complete, BoD-ready ACDC MVP Deliverable Contract document from a validated parameter set, with all fields filled and enforcement language included.",
       "folder": "contract-gen",
       "skill_id": "epcb.contracts.contract_gen",
@@ -113,8 +113,8 @@
       "trigger_keywords_raw": "contract, generate contract, deliverable contract, fill document, bod contract"
     },
     {
-      "current_path": "skills/contract-to-skill/V002/skill.md",
-      "current_version": "V002",
+      "current_path": "skills/contract-to-skill/V003/skill.md",
+      "current_version": "V003",
       "description": "Convert an ACDC MVP Deliverable Contract document into a complete, reusable skill.md file by mapping contract fields to the AISkills standard structure.",
       "folder": "contract-to-skill",
       "skill_id": "epcb.meta.contract_to_skill",
@@ -134,8 +134,8 @@
       "trigger_keywords_raw": "contract, convert contract, extract workflow, create skill, skill intake"
     },
     {
-      "current_path": "skills/contract-type/V003/skill.md",
-      "current_version": "V003",
+      "current_path": "skills/contract-type/V004/skill.md",
+      "current_version": "V004",
       "description": "Classify and validate contract parameters before downstream contract generation.",
       "folder": "contract-type",
       "skill_id": "epcb.contracts.contract_type",
@@ -317,6 +317,32 @@
         "system validation"
       ],
       "trigger_keywords_raw": "naasc, showcase execution, event pipeline, project intake, judge coordination, pilot event, system validation"
+    },
+    {
+      "current_path": "skills/pid-steering-controller/V001/skill.md",
+      "current_version": "V001",
+      "description": "Implement and tune a PID/PI steering controller for the JPA JetRacer Pro RC car using lane offset input from the perception pipeline and PWM output to the PCA9685 servo.",
+      "folder": "pid-steering-controller",
+      "skill_id": "epcb.pid.pid_steering_controller",
+      "skill_name": "pid-steering-controller",
+      "support_paths": {
+        "assets": "skills/pid-steering-controller/assets",
+        "references": "skills/pid-steering-controller/references",
+        "scripts": "skills/pid-steering-controller/scripts"
+      },
+      "trigger_keywords": [
+        "pid steering",
+        "pid controller",
+        "lane offset",
+        "servo steering",
+        "rc car steering",
+        "pid tuning",
+        "steer control",
+        "pid loop",
+        "jetracer steer",
+        "pid gains"
+      ],
+      "trigger_keywords_raw": "pid steering, pid controller, lane offset, servo steering, rc car steering, pid tuning, steer control, pid loop, jetracer steer, pid gains"
     },
     {
       "current_path": "skills/retrospective-delivery-brutal/V001/skill.md",
